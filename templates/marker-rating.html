@@ -1,0 +1,54 @@
+<div style="padding: 1rem">
+
+<div class="title">
+    <span>Rating</span>
+    <button hx-get="{{ "markersDetails", "id=".@marker->id  | alias }}" hx-target="[data-drawer='marker']">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+    </button>
+</div>
+
+<ul>
+    <li class="listitem small" data-rating="0">
+        <div class="icon">
+            <i class="ph-bold ph-smiley-blank"></i>
+        </div>
+        <div class="name">No rating</div>
+        <div class="options">
+            <button hx-post="{{ "markerRating", "id=".@marker->id | alias }}" hx-vals='{"rating": 0}' hx-target="[data-drawer='marker']" class="primary">Select</button>
+        </div>
+    </li>
+
+    <li class="listitem small" data-rating="0">
+        <div class="icon">
+            <i class="ph-bold ph-clipboard-text"></i>
+        </div>
+        <div class="name">Wishlist</div>
+        <div class="options">
+            <button hx-post="{{ "markerRating", "id=".@marker->id | alias }}" hx-vals='{"rating": 1}' hx-target="[data-drawer='marker']" class="primary">Select</button>
+        </div>
+    </li>
+
+    <li class="listitem small" data-rating="0">
+        <div class="icon">
+            <i class="ph-bold ph-thumbs-up"></i>
+        </div>
+        <div class="name">Good</div>
+        <div class="options">
+            <button hx-post="{{ "markerRating", "id=".@marker->id | alias }}" hx-vals='{"rating": 4}' hx-target="[data-drawer='marker']" class="primary">Select</button>
+        </div>
+    </li>
+
+    <li class="listitem small" data-rating="0">
+        <div class="icon">
+            <i class="ph-bold ph-fire"></i>
+        </div>
+        <div class="name">Excellent</div>
+        <div class="options">
+            <button hx-post="{{ "markerRating", "id=".@marker->id | alias }}" hx-vals='{"rating": 5}' hx-target="[data-drawer='marker']" class="primary">Select</button>
+        </div>
+    </li>
+
+
+</ul>
+
+</div>

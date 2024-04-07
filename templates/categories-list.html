@@ -1,0 +1,45 @@
+<div class="title">
+    <span>Categories</span>
+    <button onclick="toggleDrawer('categories', false)">
+        <i class="ph-bold ph-x"></i>
+    </button>
+</div>
+
+<ul>
+    <li class="listitem" onclick="filterByCategory('*')" data-category="*">
+        <div class="icon">
+            <i class="ph-bold ph-asterisk-simple"></i>
+        </div>
+        <div class="name">All</div>
+        <div class="stats">{{ @markers }} Places</div>
+    </li>
+
+    <li class="listitem" onclick="filterByCategory(0)" data-category="*">
+        <div onclick="filterByCategory(0)"  class="icon" style="--color: #515151">
+            <i class="ph-bold ph-cat"></i>
+        </div>
+        <div onclick="filterByCategory(0)" class="name">No category</div>
+        <div onclick="filterByCategory(0)" class="stats">{{ @markersWithoutCategory }} Places</div>
+        <div class="options">
+        </div>
+    </li>
+
+    <repeat group="{{ @categories }}" value="{{ @category }}">
+        <li class="listitem" data-category="{{ @category->id }}">
+            <div onclick="filterByCategory({{ @category->id }})"  class="icon" style="--color: {{ @category->color }}">
+                <i class="ph-bold ph-{{ @category->icon }}"></i>
+            </div>
+            <div onclick="filterByCategory({{ @category->id }})" class="name">{{ @category->name }}</div>
+            <div onclick="filterByCategory({{ @category->id }})" class="stats">{{ @category->amount }} Places</div>
+            <div class="options">
+                <button class="edit" hx-get="{{ "categoryEdit", "id=".@category->id | alias }}" hx-target="[data-drawer='categories']">
+                    <i class="ph ph-pencil-simple-line"></i>
+                </button>
+            </div>
+        </li>
+    </repeat>
+</ul>
+
+<script>
+    loadMarkers();
+</script>

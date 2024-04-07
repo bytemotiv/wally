@@ -1,0 +1,39 @@
+<div class="title">
+    <span>Ratings</span>
+    <button onclick="toggleDrawer('ratings', false)">
+        <i class="ph-bold ph-x"></i>
+    </button>
+</div>
+
+<ul>
+    <li class="listitem small" onclick="filterByRating('*')" data-rating="*">
+        <div class="icon">
+            <i class="ph-bold ph-asterisk-simple"></i>
+        </div>
+        <div class="name">All</div>
+    </li>
+    <li class="listitem small" onclick="filterByRating(1)" data-rating="1">
+        <div class="icon">
+            <i class="ph-bold ph-clipboard-text"></i>
+        </div>
+        <div class="name">Wishlist</div>
+    </li>
+    <li class="listitem small" onclick="filterByRating(0)" data-rating="0">
+        <div class="icon">
+            <i class="ph-bold ph-smiley-blank"></i>
+        </div>
+        <div class="name">No rating</div>
+    </li>
+    <li class="listitem small" onclick="filterByRating(4)" data-rating="4">
+        <div class="icon">
+            <i class="ph-bold ph-thumbs-up"></i>
+        </div>
+        <div class="name">Good</div>
+    </li>
+    <li class="listitem small" onclick="filterByRating(5)" data-rating="5">
+        <div class="icon">
+            <i class="ph-bold ph-fire"></i>
+        </div>
+        <div class="name">Excellent</div>
+    </li>
+</ul>

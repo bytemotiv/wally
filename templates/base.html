@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wally</title>
+
+    <css src="/assets/css/leaflet.css"/>
+    <css src="/assets/css/wally.css"/>
+
+    <script src="/assets/js/htmx.min.js"></script>
+    <script src="/assets/js/toastify.js"></script>
+
+    <script src="/assets/js/leaflet.js"></script>
+    <script src="https://unpkg.com/pouchdb@^5.2.0/dist/pouchdb.js"></script>
+	<script src="https://unpkg.com/leaflet.tilelayer.pouchdbcached@latest/L.TileLayer.PouchDBCached.js"></script>
+
+    <script src="/assets/js/wally.js?v3"></script>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        var markerStyles = {};
+
+        <repeat group="{{ @categories }}" value="{{ @category }}">
+            var el = document.createElement("div");
+            el.className = "marker-category";
+            el.innerHTML = `<i class="ph-bold ph-{{ @category->icon }}" style="color: {{ @category->color }}"></i>`;
+            el.style.width = "24px";
+            el.style.height = "24px";
+            markerStyles[{{ @category->id }}] = el;
+        </repeat>
+    </script>
+</head>
+<body>
+
+    <main>
+
+        <div id="map"></div>
+
+        <div id="searchbar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="search" onkeyup="search(this.value, event)">
+        </div>
+        <div id="quickresults">
+            <repeat group="{{ @markers }}" value="{{ @marker }}">
+                <div class="result" data-content="{{ @marker->name }}" onclick="showMarkerDetails({{ @marker->id }})">
+                    <!-- TODO: Also add tags-->
+                    <div class="name">{{ @marker->name }}</div>
+                    <div class="category">{{ @marker->categoryName }}</div>
+                    <div class="rating">{{ @marker->ratingName }}</div>
+                </div>
+            </repeat>
+        </div>
+        <div id="searchresults"></div>
+
+        <script>
+
+        function search(query, event) {
+            if (event.key === "Enter") {
+                document.querySelector("#quickresults").style.display = "none";
+                //document.querySelector("#searchresults").style.display = "block";
+                //document.querySelector("#searchresults").innerHTML = "";
+                htmx.ajax(
+                    "GET",
+                    `{{ "search" | alias }}?query=${query}`,
+                    {
+                        "target": "#searchresults"
+                    }
+                );
+            } else {
+                query = query.toLowerCase();
+                document.querySelector("#quickresults").style.display = "block";
+                //document.querySelector("#searchresults").style.display = "none";
+                document.querySelectorAll("#quickresults .result").forEach(result => {
+                    result.classList.remove("visible");
+                });
+                if (query.length < 3) {
+                    return;
+                }
+                document.querySelectorAll("#quickresults .result").forEach(result => {
+                    result.classList.toggle("visible", result.dataset.content.toLowerCase().indexOf(query) > -1);
+                });
+            }
+        }
+
+        </script>
+
+        <div id="controls">
+            <button hx-get="{{ "categoriesList" | alias }}" hx-target="[data-drawer='categories']" hx-swap="innerHTML" hx-on::after-request="toggleDrawer('categories', true)">
+                <i class="ph ph-list-bullets"></i>
+            </button>
+            <button hx-get="{{ "ratingsList" | alias }}" hx-target="[data-drawer='ratings']" hx-swap="innerHTML" hx-on::after-request="toggleDrawer('ratings', true)">
+                <i class="ph ph-star"></i>
+            </button>
+            <button onclick="locateUser()">
+                <i class="ph ph-navigation-arrow"></i>
+            </button>
+        </div>
+
+
+
+        <div id="bottomDrawer"></div>
+        <div id="details"></div>
+
+        <div class="drawer" data-drawer="marker"></div>
+        <div class="drawer" data-drawer="categories"></div>
+        <div class="drawer" data-drawer="ratings"></div>
+
+        <div class="drawer" data-drawer="searchresult">
+            <include href="search-result.html" />
+        </div>
+
+        <div class="drawer" data-drawer="ping">
+            <include href="map-ping.html" />
+        </div>
+
+        <div id="null"></div>
+    </main>
+
+</body>

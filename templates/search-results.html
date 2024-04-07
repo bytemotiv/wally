@@ -1,0 +1,134 @@
+<repeat group="{{ @results }}" value="{{ @result }}" counter="{{ @counter }}">
+    <div class="result"
+        data-content="{{ @result->name }}"
+        data-lat="{{ @result->lat }}"
+        data-lng="{{ @result->lng }}"
+        data-id="{{ @counter }}"
+    >
+        <div class="name">{{ @result->name }}</div>
+        <div class="address">{{ @result->address | raw }}</div>
+        <div class="category">{{ @result->category }}</div>
+
+        <button class="primary" onclick="saveSearchResult({{ @counter }})">Save as Marker</button>
+    </div>
+</repeat>
+
+<script>
+    document.querySelector("#map").classList.add("activesearch");
+
+    searchresultsLayer.clearLayers();
+    var tempMarkers = {};
+    var tempBounds = new L.LatLngBounds();
+
+    <repeat group="{{ @results }}" value="{{ @result }}" counter="{{ @counter }}">
+
+    tempBounds.extend([{{ @result->lat }}, {{ @result->lng }}]);
+
+    tempMarkers[{{ @counter }}] = L.marker([{{ @result->lat }}, {{ @result->lng }}], {
+        icon: L.divIcon({
+            iconSize: [24, 24],
+            className: "wally-searchresult",
+            html: "{{ @counter }}"
+        }),
+        properties: {
+            "lat": "{{ @result->lat }}",
+            "lng": "{{ @result->lng }}",
+            "name": "{{ @result->name }}",
+            "category": "{{ @result->category }}",
+            "address": "{{ @result->getAddress() }}",
+            "sourceGeocoder": "{{ @result->sourceGeocoder }}",
+            "sourceId": "{{ @result->sourceId }}",
+        }
+
+    }).addTo(searchresultsLayer);
+    tempMarkers[{{ @counter }}].on("click", e => {
+        showSearchResult({{@counter}})
+    });
+
+    </repeat>
+
+    if (tempBounds.isValid()) {
+        map.fitBounds(tempBounds, {
+            padding: [25, 50]
+        });
+    }
+
+    <check if="{{ sizeof(@results) < 1 }}">
+        Toastify({
+            text: "No results found",
+            duration: 1500,
+            close: true,
+        }).showToast();
+    </check>
+
+    var searchResultId = 0;
+
+    function showSearchResult(searchId) {
+        searchResultId = searchId;
+        var data = tempMarkers[searchId].options.properties;
+        map.panTo([data.lat, data.lng], { paddingBottomRight: [0, 100]});
+
+        var result = document.querySelector("[data-drawer='searchresult']");
+        result.querySelector(".name").innerHTML = data.name;
+        result.querySelector(".category").innerHTML = data.category;
+        result.querySelector(".address").innerHTML = data.address;
+
+        /*
+        document.querySelectorAll("#searchresults .result").forEach(result => {
+            result.classList.toggle("visible", result.dataset.id == searchId);
+        });
+        */
+       toggleDrawer("searchresult", true);
+    }
+
+    function showSearchResultNext() {
+        searchResultId++;
+        if (searchResultId >= Object.keys(tempMarkers).length) {
+            searchResultId = 1;
+        }
+        showSearchResult(searchResultId);
+    }
+
+    function showSearchResultPrev() {
+        searchResultId--;
+        if (searchResultId < 1) {
+            searchResultId = tempMarkers.length - 1;
+        }
+        showSearchResult(searchResultId);
+    }
+
+    function closeSearch() {
+        document.querySelector("#map").classList.remove("activesearch");
+        toggleDrawer("searchresult", false);
+        searchresultsLayer.clearLayers();
+        tempMarkers = {};
+    }
+
+    function saveSearchResult(searchId) {
+        var data = tempMarkers[searchId].options.properties;
+
+        htmx.ajax(
+            "POST",
+            "{{ "markersCreate" | alias }}",
+            {
+                "values": {
+                    "name": data.name,
+                    "lat": data.lat,
+                    "lng": data.lng,
+                    "address": data.address,
+                    "sourceGeocoder": data.sourceGeocoder,
+                    "sourceId": data.sourceId,
+                },
+                "target": "#details"
+            }
+        );
+
+        //document.querySelectorAll("#searchresults .result").forEach(result => {
+        //    result.classList.remove("visible");
+        //});
+
+        document.querySelector("#details").classList.add("active");
+    }
+
+
+</script>

@@ -1,0 +1,33 @@
+<div style="padding: 1rem">
+
+<div class="title">
+    <strong>Categories</strong>
+    <button hx-get="{{ "markersDetails", "id=".@marker->id  | alias }}" hx-target="[data-drawer='marker']">
+        <i class="ph-bold ph-x"></i>
+    </button>
+</div>
+
+<ul>
+    <repeat group="{{ @categories }}" value="{{ @category }}">
+        <li class="listitem" data-category="{{ @category->id }}">
+            <div class="icon" style="--color: {{ @category->color }}">
+                <i class="ph-bold ph-{{ @category->icon }}"></i>
+            </div>
+            <div class="name">{{ @category->name }}</div>
+            <div class="stats">{{ @category->amount }} Places</div>
+            <div class="options">
+                <button hx-post="{{ "markerCategory", "id=".@marker->id | alias }}" hx-vals='{"category": "{{ @category->id }}"}' hx-target="[data-drawer='marker']" class="primary" hx-on::after-request="loadMarkers()">Select</button>
+            </div>
+        </li>
+    </repeat>
+
+    <li>
+        <button class="primary" hx-get="{{ "categoryEditMarker", "id=null,marker=".@marker->id | alias }}" hx-target="[data-drawer='marker']" xhx-on::after-request="showMarkerDetails()hideMarkerDetails(); showBottomDrawer()">
+            New Category
+        </button>
+    </li>
+
+    <div id="null"></div>
+</ul>
+
+</div>

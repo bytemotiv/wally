@@ -1,0 +1,160 @@
+<div class="header" style="--color: {{ @category->color }}">
+    <div class="title">
+        <input type="text" name="name" value="{{ @marker->name }}">
+    </div>
+
+    <div class="category" hx-get="{{ "markerCategory", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">
+        <i class="ph ph-{{ @category->icon }}"></i>
+        {{ @category->name }}
+    </div>
+
+    <div class="rating" hx-get="{{ "markerRating", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">
+        <i class="ph ph-{{ @rating->icon }}"></i>
+        {{ @rating->name }}
+    </div>
+</div>
+
+<div class="details">
+
+    <div class="address group">
+        <div class="icon">
+            <i class="ph ph-map-trifold"></i>
+        </div>
+        <div class="text">
+            <div class="address">
+                {{ @marker->address | raw }}
+            </div>
+            <div class="coordinates text-secondary">
+                {{ @marker->lat }} / {{ @marker->lng}}<br>
+            </div>
+        </div>
+    </div>
+
+    <div class="photos group">
+        <repeat group="{{ @uploads }}" value="{{ @upload }}">
+            <div class="photo">
+                <a href="{{ @upload->image }}" target="_blank">
+                    <img src="{{ @upload->thumb }}">
+                </a>
+            </div>
+        </repeat>
+
+        <div class="photo-new">
+            <form id="upload" hx-encoding="multipart/form-data" hx-post="{{ "markerUpload" | alias }}" hx-target="#details">
+                <img class="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+                <input type="file" name="file" accept="image/*" capture="camera" required onchange="previewImage(event)"/>
+                <button><i class="ph ph-check"></i></button>
+                <div class="repeat">
+                    <i class="ph ph-camera-plus"></i>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="tags group">
+        <div class="icon">
+            <i class="ph ph-tag"></i>
+        </div>
+        <div class="text">
+            <ul class="tags">
+                <repeat group="{{ @tags }}" value="{{ @tag }}">
+                    <li data-counter="{{ @tag->amount }}">
+                        <span>{{ @tag->tag }}"></span>
+                        <button onclick="removeTag(this)">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </li>
+                </repeat>
+            </ul>
+            <input type="text" placeholder="New Tag" onkeypress="addTag(this, event)">
+        </div>
+
+        <script>
+        function removeTag(element) {
+            element.closest("li").remove();
+        }
+
+        function addTag(element, event) {
+            if (event.key == "Enter") {
+                var ul = document.querySelector("ul.tags");
+                var li = document.createElement("li");
+                li.innerHTML = `<span>${element.value}</span><button onclick="removeTag(this)"><i class="ph ph-x"></i></button>`;
+                ul.appendChild(li);
+                element.value = "";
+            }
+        }
+        </script>
+    </div>
+
+    <div class="notes group">
+        <div class="title">
+            <b>Notes</b>
+        </div>
+        <textarea name="notes" placeholder="Save infos/notes for this location">{{ @marker->notes }}</textarea>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="button" hx-post="{{ "markerEdit", "id=".@marker->id | alias }}" hx-vals='js:{data: getMarkerData()}' hx-target="[data-drawer='marker']">
+        <i class="ph ph-check"></i>
+        <span>Save</span>
+    </div>
+</div>
+
+
+<script>
+
+var data = {
+    "name": "{{ @marker->name }}",
+    "notes": "{{ @marker->notes }}",
+    "tags": [],
+};
+
+function getMarkerData() {
+    data["name"] = document.querySelector("input[name='name']").value.trim();
+    data["notes"] = document.querySelector("textarea[name='notes']").value.trim();
+    data["tags"] = Array.from(document.querySelectorAll("ul.tags li")).map((li) => li.querySelector("span").innerHTML);
+    return data;
+}
+
+function previewImage(event) {
+    var output = document.querySelector("#upload .preview");
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free up memory
+    }
+};
+
+function deleteMarker(markerId) {
+    var confirmation = window.confirm("Do you really want to delete this marker?");
+    if (confirmation) {
+        htmx.ajax(
+            "DELETE",
+            `/markers/${markerId}`,
+            {
+                "target": "#null"
+            }
+        );
+        toggleDrawer("marker", false);
+        loadMarkers();
+    }
+}
+
+async function shareMarker() {
+    var url = window.location + "{{ "markersDetails" | alias }}";
+    try {
+        await navigator.clipboard.writeText(url);
+        Toastify({
+            text: "URL copied to clipboard",
+            duration: 1500,
+            close: true,
+        }).showToast();
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+loadMarkers();
+
+</script>

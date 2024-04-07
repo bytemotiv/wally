@@ -1,0 +1,202 @@
+<div class="title">
+    <check if="{{ @marker != null }}">
+        <true>
+            <span>New category</span>
+        </true>
+        <false>
+            <span>Edit this category</span>
+        </false>
+    </check>
+
+    <button onclick="toggleDrawer('categories', false)">
+        <i class="ph-bold ph-x"></i>
+    </button>
+</div>
+
+<input class="category-edit" type="text" value="{{ @category->name }}"  onkeydown="setName(this.value)" onkeyup="setName(this.value)" placeholder="New Category">
+<input type="hidden" id="marker" value="{{ @marker }}">
+
+<hr>
+
+<div class="icons">
+    <div onclick="selectIcon(this)" class="icon" data-icon="cactus">
+        <i class="ph ph-cactus"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="sun-horizon">
+        <i class="ph ph-sun-horizon"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="mountains">
+        <i class="ph ph-mountains"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="person-simple-hike">
+        <i class="ph ph-person-simple-hike"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="shopping-cart-simple">
+        <i class="ph ph-shopping-cart-simple"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="basketball">
+        <i class="ph ph-basketball"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="car">
+        <i class="ph ph-car"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="bank">
+        <i class="ph ph-bank"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="bed">
+        <i class="ph ph-bed"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="beer-bottle">
+        <i class="ph ph-beer-bottle"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="bowl-steam">
+        <i class="ph ph-bowl-steam"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="city">
+        <i class="ph ph-city"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="farm">
+        <i class="ph ph-farm"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="flag">
+        <i class="ph ph-flag"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="fork-knife">
+        <i class="ph ph-fork-knife"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="globe">
+        <i class="ph ph-globe"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="hamburger">
+        <i class="ph ph-hamburger"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="letter-circle-p">
+        <i class="ph ph-letter-circle-p"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="martini">
+        <i class="ph ph-martini"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="pizza">
+        <i class="ph ph-pizza"></i>
+    </div>
+
+    <div onclick="selectIcon(this)" class="icon" data-icon="popsicle">
+        <i class="ph ph-popsicle"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="road-horizon">
+        <i class="ph ph-road-horizon"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="star">
+        <i class="ph ph-star"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="storefront">
+        <i class="ph ph-storefront"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="tent">
+        <i class="ph ph-tent"></i>
+    </div>
+
+    <div onclick="selectIcon(this)" class="icon" data-icon="van">
+        <i class="ph ph-van"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="wine">
+        <i class="ph ph-wine"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="camera">
+        <i class="ph ph-camera"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="drone">
+        <i class="ph ph-drone"></i>
+    </div>
+    <div onclick="selectIcon(this)" class="icon" data-icon="question">
+        <i class="ph ph-question"></i>
+    </div>
+</div>
+
+<hr>
+
+<div class="colors">
+    <div onclick="selectColor(this)" class="color" data-color="#1abc9c" style="--color:#1abc9c"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#2ecc71" style="--color:#2ecc71"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#3498db" style="--color:#3498db"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#9b59b6" style="--color:#9b59b6"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#34495e" style="--color:#34495e"></div>
+
+    <div onclick="selectColor(this)" class="color" data-color="#16a085" style="--color:#16a085"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#27ae60" style="--color:#27ae60"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#2980b9" style="--color:#2980b9"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#8e44ad" style="--color:#8e44ad"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#2c3e50" style="--color:#2c3e50"></div>
+
+    <div onclick="selectColor(this)" class="color" data-color="#f1c40f" style="--color:#f1c40f"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#e67e22" style="--color:#e67e22"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#c0392b" style="--color:#e74c3c"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#fd79a8" style="--color:#fd79a8"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#95a5a6" style="--color:#95a5a6"></div>
+
+    <div onclick="selectColor(this)" class="color" data-color="#f39c12" style="--color:#f39c12"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#d35400" style="--color:#d35400"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#c0392b" style="--color:#c0392b"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#e84393" style="--color:#e84393"></div>
+    <div onclick="selectColor(this)" class="color" data-color="#7f8c8d" style="--color:#7f8c8d"></div>
+
+</div>
+
+<hr>
+
+<div class="buttons">
+    <button class="secondary" onclick="toggleDrawer('categories', false)">
+        <span>Cancel</span>
+    </button>
+
+    <check if="{{ @marker != null }}">
+        <true>
+            <button class="primary" hx-post="{{ "categoryEdit", "id=".@category->id | alias }}" hx-vals='js:{"category": category, "marker": document.querySelector("input#marker").value}' hx-target="[data-drawer='marker']" hx-on::after-request="loadMarkers()">
+                <span>Save</span>
+            </button>
+        </true>
+        <false>
+            <button class="primary" hx-post="{{ "categoryEdit", "id=".@category->id | alias }}" hx-vals='js:{"category": category, "marker": document.querySelector("input#marker").value}' hx-target="#null" hx-on::after-request="loadMarkers(); toggleDrawer('categories', false)">
+                <span>Save</span>
+            </button>
+        </false>
+    </check>
+
+
+</div>
+
+
+<script>
+
+    var category = {
+        "name": "{{ @category->name }}",
+        "icon": "{{ @category->icon }}",
+        "color": "{{ @category->color }}",
+    }
+
+    document.querySelectorAll(".icons .icon").forEach(i => {
+        i.classList.toggle("active", i.dataset.icon == category["icon"]);
+    });
+    document.querySelectorAll(".colors .color").forEach(c => {
+        c.classList.toggle("active", c.dataset.color == category["color"]);
+    });
+
+    function setName(name) {
+        category["name"] = name;
+    }
+
+    function selectIcon(el) {
+        category["icon"] = el.dataset.icon;
+        document.querySelectorAll(".icons .icon").forEach(i => {
+            i.classList.toggle("active", i === el);
+        });
+    }
+
+    function selectColor(el) {
+        category["color"] = el.dataset.color;
+        document.querySelectorAll(".colors .color").forEach(c => {
+            c.classList.toggle("active", c === el);
+        });
+    }
+
+</script>
