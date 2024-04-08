@@ -1,8 +1,25 @@
 # Wally
-## A self-hosted, cooperative place to collect map markers
+## A self-hosted place to collect map markers
 
-Named after the famous cartographer Wally B. Feed, Wally is a self-hosted PHP application that allows you to store markers on a map and categorize them, put them into lists, assigm icons to them and save details inside the markers.
+Named after the famous cartographer Wally B. Feed, Wally is a self-hosted PHP application that allows you to store markers on a map and categorize them, rate them or put them on your wishlist, assign icons to them and save details like text notes and pictures attached to the marker.
+
 Markers, categories, groups and the whole map can be shared with others, giving them read or write access to contribute.
+
+---
+
+### Todos
+
+- [ ] User Management
+- [ ] Speaking URLs (via hx-push)
+- [ ] Better routing of URLs
+- [ ] Clustering of Markers depending on the zoom
+- [ ] Access Control
+- [ ] Rights Management
+- [ ] Better Geocoder (Google Maps API) as an option
+- [ ] Guided Setup process (Categories, Ratings, ...)
+
+---
+
 
 ### Why PHP?
 
