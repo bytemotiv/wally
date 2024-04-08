@@ -230,11 +230,12 @@ function hideMapPing() {
 }
 
 function showMapPing(lat, lng) {
+    hideMarkerDetails();
+
     mapPing.setOpacity(1);
     mapPing.setLatLng([lat, lng]);
     lat = lat.toFixed(4);
     lng = lng.toFixed(4);
-    //TODO: Close all other drawers?
     document.querySelector("[data-drawer='ping'] .lat").innerHTML = lat;
     document.querySelector("[data-drawer='ping'] .lng").innerHTML = lng;
     toggleDrawer("ping", true);
