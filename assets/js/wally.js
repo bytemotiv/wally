@@ -242,7 +242,12 @@ function showMapPing(lat, lng) {
 
 
 // --- Marker Details
+function extendMarker() {
+    document.querySelector("[data-drawer='marker']").classList.toggle("extended", true);
+}
+
 function showMarkerDetails(markerId) {
+    document.querySelector("[data-drawer='marker']").classList.toggle("extended", false);
     toggleDrawer("marker", false);
     document.querySelector("[data-drawer='marker']").innerHTML = "";
     htmx.ajax(
@@ -257,6 +262,7 @@ function showMarkerDetails(markerId) {
 
 function hideMarkerDetails() {
     toggleDrawer("marker", false);
+    document.querySelector("[data-drawer='marker']").classList.toggle("extended", false);
 }
 
 

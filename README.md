@@ -12,6 +12,8 @@ Markers, categories, groups and the whole map can be shared with others, giving 
 - [ ] User Management
 - [ ] Speaking URLs (via hx-push)
 - [ ] Better routing of URLs
+- [ ] Adding a view for Tags
+- [ ] Adding a view for all markers of a given category/rating
 - [ ] Clustering of Markers depending on the zoom
 - [ ] Access Control
 - [ ] Rights Management

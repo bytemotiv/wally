@@ -272,6 +272,9 @@ button.secondary
         font-size: 1.5rem
         height: 2.5rem
         width: 2.5rem
+        display: flex
+        justify-content: center
+        align-items: center
 
         &:hover
             background: darken($button-background, 25%)
@@ -520,7 +523,32 @@ li.listitem
 .drawer[data-drawer="marker"]
     display: flex
     flex-direction: column
-    max-height: 100vh
+    max-height: 50vh
+    transition: all 0.3s ease-in-out
+    height: 50vh
+    &:before
+        display: block
+        position: absolute
+        bottom: 4.9rem
+        height: 5rem
+        left: 0
+        right: 0
+        content: " "
+        background: linear-gradient(0deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%)
+        z-index: 10
+        transition: opacity 0.3s ease-in-out
+        opacity: 1
+
+    &.extended
+        max-height: 100vh
+        height: 100vh
+
+        &::before
+            opacity: 0
+            pointer-events: none
+
+        .header
+            pointer-events: all
 
     .header
         border-top-left-radius: 1rem
@@ -531,6 +559,7 @@ li.listitem
         display: grid
         grid-template-columns: 1fr 1fr
         grid-template-rows: auto
+        pointer-events: none
 
         .title
             color: #fff
@@ -667,6 +696,7 @@ li.listitem
         justify-content: space-around
         margin-top: auto
         padding: 1rem
+        height: 5rem
 
         .button
             align-items: center
