@@ -255,6 +255,9 @@ function showMarkerDetails(markerId) {
     markerLayer.eachLayer(layer => {
         if (layer.options.properties.id == markerId) {
             map.panTo(layer.getLatLng());
+            layer._icon.classList.add("selected");
+        } else {
+            layer._icon.classList.remove("selected");
         }
     });
 
