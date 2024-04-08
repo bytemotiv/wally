@@ -247,9 +247,17 @@ function extendMarker() {
 }
 
 function showMarkerDetails(markerId) {
+    hideMapPing();
     document.querySelector("[data-drawer='marker']").classList.toggle("extended", false);
     toggleDrawer("marker", false);
     document.querySelector("[data-drawer='marker']").innerHTML = "";
+
+    markerLayer.eachLayer(layer => {
+        if (layer.options.properties.id == markerId) {
+            map.panTo(layer.getLatLng());
+        }
+    });
+
     htmx.ajax(
         "GET",
         `/markers/details/${markerId}`,
