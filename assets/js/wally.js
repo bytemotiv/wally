@@ -274,6 +274,10 @@ function showMarkerDetails(markerId) {
 function hideMarkerDetails() {
     toggleDrawer("marker", false);
     document.querySelector("[data-drawer='marker']").classList.toggle("extended", false);
+
+    markerLayer.eachLayer(layer => {
+        layer._icon.classList.remove("selected");
+    });
 }
 
 
