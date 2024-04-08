@@ -41,6 +41,9 @@
         <div id="searchbar">
             <i class="ph ph-magnifying-glass"></i>
             <input type="search" inputmode="search" onkeyup="search(this.value, event)">
+            <button onclick="search(this.parentNode.querySelector('input').value, 'click');">
+                <i class="ph ph-arrow-right"></i>
+            </button>
         </div>
         <div id="quickresults">
             <repeat group="{{ @markers }}" value="{{ @marker }}">
@@ -57,10 +60,8 @@
         <script>
 
         function search(query, event) {
-            if (event.key === "Enter") {
+            if (event.key === "Enter" || event == "click") {
                 document.querySelector("#quickresults").style.display = "none";
-                //document.querySelector("#searchresults").style.display = "block";
-                //document.querySelector("#searchresults").innerHTML = "";
                 htmx.ajax(
                     "GET",
                     `{{ "search" | alias }}?query=${query}`,
