@@ -1,6 +1,7 @@
 $button-background: #515151
 $button-color: #ffffff
 $button-border-radius: 8px
+$font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif
 
 @font-face
     font-family: IBMPlexSans
@@ -24,6 +25,16 @@ $button-border-radius: 8px
     &:hover
         color: darken($color, 30%)
 
+@mixin inputField
+    background: #fff
+    border-radius: 8px
+    border: 1px solid #818181
+    color: #000
+    font-family: $font-default
+    font-size: 1rem
+    padding: 0.5rem
+    width: 100%
+
 @mixin desktop
     @media (min-width: 1024px)
         @content
@@ -40,7 +51,7 @@ html
     padding: 0
 
 body
-    font-family: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif
+    font-family: $font-default
     height: 100dvh
     margin: 0
     overflow: hidden
@@ -586,6 +597,9 @@ li.listitem
         grid-template-rows: auto
         pointer-events: none
 
+        input
+            @include inputField
+
         .title
             color: #fff
             grid-column: span 2
@@ -639,6 +653,9 @@ li.listitem
 
             p
                 margin: 0 0 1rem 0
+
+            textarea
+                @include inputField
 
         &.photos
             overflow-x: auto
@@ -766,13 +783,16 @@ ul.tags
         border-radius: 0.5rem
         padding: 0.25rem 0.75rem 0.25rem 0.725rem
         font-size: 14px
-        gap: 0.5rem
+        display: flex
+        align-items: center
 
-        //&:before
-            margin: -0.25rem
-            font-size: 12px
-            border-radius: 2rem
-            padding: 0.25rem 0.5rem
-            content: attr(data-counter)
-            background: darken(#efefef, 10%)
-            color: #000
+    button
+        border: none
+        background: none
+        font-size: 1.125rem
+        color: #515151
+
+div.tags
+    input
+        margin: 1rem 0 0 0
+        @include inputField
