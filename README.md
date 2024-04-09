@@ -19,6 +19,7 @@ Markers, categories, groups and the whole map can be shared with others, giving 
 - [ ] Rights Management
 - [ ] Better Geocoder (Google Maps API) as an option
 - [ ] Guided Setup process (Categories, Ratings, ...)
+- [ ] Improve Offline Capabilities
 
 ---
 
