@@ -22,7 +22,7 @@
     </repeat>
 
     <li>
-        <button class="primary" hx-get="{{ "categoryEditMarker", "id=null,marker=".@marker->id | alias }}" hx-target="[data-drawer='marker']" xhx-on::after-request="showMarkerDetails()hideMarkerDetails(); showBottomDrawer()">
+        <button class="primary" hx-get="{{ "categoryEditMarker", "id=null,marker=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
             New Category
         </button>
     </li>

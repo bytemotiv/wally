@@ -145,17 +145,20 @@
 <hr>
 
 <div class="buttons">
-    <button class="secondary" onclick="toggleDrawer('categories', false)">
-        <span>Cancel</span>
-    </button>
 
     <check if="{{ @marker != null }}">
         <true>
+            <button class="secondary" hx-get="{{ "markersDetails", "id=".@marker | alias }}" hx-target="[data-drawer='marker']">
+                <span>Cancel</span>
+            </button>
             <button class="primary" hx-post="{{ "categoryEdit", "id=".@category->id | alias }}" hx-vals='js:{"category": category, "marker": document.querySelector("input#marker").value}' hx-target="[data-drawer='marker']" hx-on::after-request="loadMarkers()">
                 <span>Save</span>
             </button>
         </true>
         <false>
+            <button class="secondary" onclick="toggleDrawer('categories', false)">
+                <span>Cancel</span>
+            </button>
             <button class="primary" hx-post="{{ "categoryEdit", "id=".@category->id | alias }}" hx-vals='js:{"category": category, "marker": document.querySelector("input#marker").value}' hx-target="#null" hx-on::after-request="loadMarkers(); toggleDrawer('categories', false)">
                 <span>Save</span>
             </button>

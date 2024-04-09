@@ -6,7 +6,8 @@
         <i class="ph ph-x"></i>
     </button>
 </div>
-<button class="primary" hx-post="{{ "markersCreate" | alias }}" hx-target="#details" hx-swap="innerHTML" hx-vals='js:{lat: mapPing.getLatLng().lat, lng: mapPing.getLatLng().lng}' hx-on::after-request="showMarkerPane()">
+<!-- TODO: Open in Edit mode -->
+<button class="primary" hx-post="{{ "markersCreate" | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML" hx-vals='js:{lat: mapPing.getLatLng().lat, lng: mapPing.getLatLng().lng}' hx-on::after-request="toggleDrawer('marker', true)">
     <i class="ph ph-bookmark-simple"></i>
     Create new Marker here
 </button>

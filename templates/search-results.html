@@ -73,12 +73,7 @@
         result.querySelector(".category").innerHTML = data.category;
         result.querySelector(".address").innerHTML = data.address;
 
-        /*
-        document.querySelectorAll("#searchresults .result").forEach(result => {
-            result.classList.toggle("visible", result.dataset.id == searchId);
-        });
-        */
-       toggleDrawer("searchresult", true);
+        toggleDrawer("searchresult", true);
     }
 
     function showSearchResultNext() {
@@ -119,15 +114,9 @@
                     "sourceGeocoder": data.sourceGeocoder,
                     "sourceId": data.sourceId,
                 },
-                "target": "#details"
+                "target": "[data-drawer='marker']"
             }
         );
-
-        //document.querySelectorAll("#searchresults .result").forEach(result => {
-        //    result.classList.remove("visible");
-        //});
-
-        document.querySelector("#details").classList.add("active");
     }
 
 

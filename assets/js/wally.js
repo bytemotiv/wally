@@ -83,7 +83,7 @@ function loadMarkers() {
                         iconAnchor: [15, 30],
                         className: "wally-marker",
                         html: `
-                        <div hx-get="/markers/details/${feature.properties.id}" hx-target="#details" hx-swap="innerHTML" hx-on::after-request="showDetailsDrawer()" style="--color: ${feature.properties.color}">
+                        <div style="--color: ${feature.properties.color}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="${feature.properties.color}" viewBox="0 0 24 24"><path d="M12 0C6.4 0 1.9 4.3 1.9 9.4c0 3.4 1.6 7 4.8 10.3 1.4 1.6 3 3 4.8 4.1.3.3.7.3 1 0 1.8-1.2 3.4-2.5 4.8-4 3.2-3.4 4.8-7 4.8-10.4C22.1 4.3 17.6 0 12 0Z" style="fill-rule:nonzero"/></svg>
                             <i class="ph-bold ph-${feature.properties.icon}"></i>
                         </div>
@@ -126,29 +126,6 @@ function setCookie(name, value, daysToExpire = 365) {
     document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
 };
 
-function showMarkerPane() {
-    document.querySelector("#details").classList.add("active");
-}
-/*
-function showMarkerDetails(markerId) {
-    hideBottomDrawer();
-
-    document.querySelector("#details").innerHTML = "";
-    htmx.ajax(
-        "GET",
-        `/markers/details/${markerId}`,
-        {
-            "target": "#details"
-        }
-    );
-    document.querySelector("#details").classList.add("active");
-}
-
-function hideMarkerDetails() {
-    document.querySelector("#details").classList.remove("active");
-}
-*/
-
 function filterByCategory(categoryId) {
     currentCategory = categoryId;
     markerLayer.eachLayer(marker => {
@@ -158,10 +135,11 @@ function filterByCategory(categoryId) {
             marker._icon.style.display = 'none';
         }
     });
-    document.querySelectorAll("#bottomDrawer li").forEach(li => {
+    document.querySelectorAll("[data-drawer='categories'] li").forEach(li => {
         li.classList.toggle("active", li.dataset.category == categoryId);
     });
-    hideBottomDrawer();
+
+    toggleDrawer("categories", false);
 }
 
 function filterByRating(rating) {
@@ -173,10 +151,11 @@ function filterByRating(rating) {
             marker._icon.style.display = 'none';
         }
     });
-    document.querySelectorAll("#bottomDrawer li").forEach(li => {
+    document.querySelectorAll("[data-drawer='ratings'] li").forEach(li => {
         li.classList.toggle("active", li.dataset.rating == rating);
     });
-    hideBottomDrawer();
+
+    toggleDrawer("ratings", false);
 }
 
 
@@ -193,20 +172,6 @@ function locateUser() {
         console.error("Geolocation is not supported by your browser");
     }
 }
-
-function showDetailsDrawer() {
-    document.querySelector("#bottomDrawer").classList.add("active");
-}
-
-function showBottomDrawer() {
-    document.querySelector("#bottomDrawer").classList.add("active");
-}
-
-function hideBottomDrawer() {
-    document.querySelector("#bottomDrawer").classList.remove("active");
-}
-
-
 
 // --------------------------------------------------------------------------------------------------------------------
 

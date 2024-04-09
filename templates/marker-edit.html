@@ -40,7 +40,7 @@
         </repeat>
 
         <div class="photo-new">
-            <form id="upload" hx-encoding="multipart/form-data" hx-post="{{ "markerUpload" | alias }}" hx-target="#details">
+            <form id="upload" hx-encoding="multipart/form-data" hx-post="{{ "markerUpload" | alias }}" hx-target="[data-drawer='marker']">
                 <img class="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
                 <input type="file" name="file" accept="image/*" capture="camera" required onchange="previewImage(event)"/>
                 <button><i class="ph ph-check"></i></button>
