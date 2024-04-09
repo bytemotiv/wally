@@ -32,10 +32,11 @@
 
     <div class="photos group">
         <repeat group="{{ @uploads }}" value="{{ @upload }}">
-            <div class="photo">
-                <a href="{{ @upload->image }}" target="_blank">
-                    <img src="{{ @upload->thumb }}">
-                </a>
+            <div class="photo" data-url="{{ @upload->image }}">
+                <button onclick="removePhoto(this)">
+                    <i class="ph ph-x"></i>
+                </button>
+                <img src="{{ @upload->thumb }}">
             </div>
         </repeat>
 
@@ -49,6 +50,12 @@
                 </div>
             </form>
         </div>
+
+        <script>
+        function removePhoto(element) {
+            element.closest(".photo").remove();
+        }
+        </script>
     </div>
 
     <div class="tags group">
@@ -59,7 +66,7 @@
             <ul class="tags">
                 <repeat group="{{ @tags }}" value="{{ @tag }}">
                     <li data-counter="{{ @tag->amount }}">
-                        <span>{{ @tag->tag }}"></span>
+                        <span>{{ @tag->tag }}</span>
                         <button onclick="removeTag(this)">
                             <i class="ph ph-x"></i>
                         </button>
@@ -96,6 +103,10 @@
 </div>
 
 <div class="footer">
+    <div class="button" hx-get="{{ "markersDetails", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
+        <i class="ph ph-x"></i>
+        <span>Cancel</span>
+    </div>
     <div class="button" hx-post="{{ "markerEdit", "id=".@marker->id | alias }}" hx-vals='js:{data: getMarkerData()}' hx-target="[data-drawer='marker']">
         <i class="ph ph-check"></i>
         <span>Save</span>
@@ -109,12 +120,14 @@ var data = {
     "name": "{{ @marker->name }}",
     "notes": "{{ @marker->notes }}",
     "tags": [],
+    "photos": [],
 };
 
 function getMarkerData() {
     data["name"] = document.querySelector("input[name='name']").value.trim();
     data["notes"] = document.querySelector("textarea[name='notes']").value.trim();
     data["tags"] = Array.from(document.querySelectorAll("ul.tags li")).map((li) => li.querySelector("span").innerHTML);
+    data["photos"] = Array.from(document.querySelectorAll(".photo")).map((img) => img.dataset.url);
     return data;
 }
 

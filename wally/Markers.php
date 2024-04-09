@@ -229,8 +229,10 @@ class Markers extends Controller {
 
             // write new tags
             $tag = new DB\SQL\Mapper($db, "tags");
-            $tag->find(array("marker=?", $marker->id));
-            $tag->erase();
+            $tags = $tag->find(array("marker=?", $marker->id));
+            foreach ($tags as $tag) {
+                $tag->erase();
+            }
 
             foreach ($data->tags as $tag) {
                 $newTag = new DB\SQL\Mapper($db, "tags");
@@ -238,6 +240,25 @@ class Markers extends Controller {
                 $newTag->tag = $tag;
                 $newTag->save();
             }
+
+            // remove deleted pictures
+            $upload = new DB\SQL\Mapper($db, "uploads");
+            $uploads = $upload->find(array("marker=?", $marker->id));
+            foreach ($uploads as $u) {
+                $keep = false;
+                foreach ($data->photos as $photo) {
+                    if ($u->image == $photo) {
+                        $keep = true;
+                    }
+                }
+                if (!$keep) {
+                    $u->erase();
+                    unlink($u->image);
+                    unlink($u->thumb);
+                    // TODO: Security check for paths
+                }
+            }
+
 
             return $this->details($f3, $args);
         }
