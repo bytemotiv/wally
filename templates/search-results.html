@@ -61,10 +61,6 @@
         }).showToast();
     </check>
 
-    if (Object.keys(tempMarkers).length == 1) {
-        showSearchResult(1);
-    }
-
     var searchResultId = 0;
 
     function showSearchResult(searchId) {
@@ -78,6 +74,10 @@
         result.querySelector(".address").innerHTML = data.address;
 
         toggleDrawer("searchresult", true);
+    }
+
+    if (Object.keys(tempMarkers).length == 1) {
+        showSearchResult(1);
     }
 
     function showSearchResultNext() {
@@ -121,6 +121,10 @@
                 "target": "[data-drawer='marker']"
             }
         );
+
+        closeSearch();
+        window.setTimeout(function() { loadMarkers()}, 1000); //TODO: Doesnt seem to load the new marker yet when called immediately
+        toggleDrawer("marker", true);
     }
 
 
