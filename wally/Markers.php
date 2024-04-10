@@ -126,7 +126,7 @@ class Markers extends Controller {
         $db = $this->db;
         $marker = new DB\SQL\Mapper($db,"markers");
 
-        $geocoder = new GeocoderNominatim;
+        $geocoder = new $_ENV["GEOCODER"];
         $result = $geocoder->reverse($f3, $lat, $lng);
 
         $marker->lat = $lat;
