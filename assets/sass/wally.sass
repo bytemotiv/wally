@@ -458,6 +458,11 @@ input.category-edit
     &[data-drawer="ratings"]
         padding: 1rem
         z-index: 5
+        max-height: 100svh
+
+        ul
+            overflow: auto
+            max-height: calc(100svh - 5rem)
 
     &[data-drawer="ping"]
         padding: 1rem
@@ -576,8 +581,8 @@ li.listitem
         opacity: 1
 
     &.extended
-        max-height: 100vh
-        height: 100vh
+        max-height: 100svh
+        height: 100svh
 
         &::before
             opacity: 0

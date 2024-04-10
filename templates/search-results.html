@@ -61,6 +61,10 @@
         }).showToast();
     </check>
 
+    if (Object.keys(tempMarkers).length == 1) {
+        showSearchResult(1);
+    }
+
     var searchResultId = 0;
 
     function showSearchResult(searchId) {

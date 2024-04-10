@@ -30,7 +30,7 @@ class AssetHelper {
 
         if (file_exists($file)) {
             $date = filemtime($file);
-            return "<script type='text/javascript' src='".$src."?v=".$date."'>";
+            return "<script type='text/javascript' src='".$src."?v=".$date."'></script>";
         } else {
             return "<!-- JS not found: ".$file."-->";
         }
