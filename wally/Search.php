@@ -7,7 +7,7 @@ class Search extends Controller {
         $query = $f3->get("GET.query");
         //$query = empty($args["query"]) ? NULL : $args["query"];
 
-        $geocoder = new GeocoderNominatim;
+        $geocoder = new GeocoderGoogle; //GeocoderNominatim;
         $results = $geocoder->search($f3, $query);
 
         $f3->set("results", $results);

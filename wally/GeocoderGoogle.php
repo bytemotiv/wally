@@ -2,28 +2,98 @@
 
 class GeocoderGoogle extends Geocoder {
 
-    function search($f3, $args) {
-        $query = empty($args["query"]) ? NULL : $args["query"];
+    function search($f3, $query) {
+        $db = $this->db;
+        $query = $f3->get("GET.query");
+        //TODO: Errorhandling $query = empty($args["query"]) ? NULL : $args["query"];
         $query = urlencode($query);
 
         $url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=".$query."&inputtype=textquery&fields=place_id%2Cformatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=".$_ENV["GOOGLE_API_KEY"];
         $data = getJson($url);
 
-        var_dump($data);
+        $results = [];
+        foreach ($data["candidates"] as $candidate) {
+            $details = $this->getDetails($candidate["place_id"]);
+
+            $address = new Address();
+            $address->lat = $details["geometry"]["location"]["lat"];
+            $address->lng = $details["geometry"]["location"]["lng"];
+            $address->sourceGeocoder = "googlemaps";
+            $address->sourceId = $candidate["place_id"] ?? NULL;
+            $address->name = $details["name"] ?? NULL;
+
+            foreach ($details["address_components"] as $addressComponent) {
+                switch ($addressComponent["types"][0]) {
+                    case "street_number":
+                        $address->housenumber = $addressComponent["long_name"];
+                        break;
+                    case "route":
+                        $address->street = $addressComponent["long_name"];
+                        break;
+                    case "locality":
+                        $address->city = $addressComponent["long_name"];
+                        break;
+                    case "country":
+                        $address->country = $addressComponent["long_name"];
+                        break;
+                    case "postal_code":
+                        $address->postcode = $addressComponent["long_name"];
+                        break;
+
+                }
+            }
+            $address->category = str_replace("_", " ", ucfirst($details["types"][0]));
+            $results[] = $address;
+        }
+        return $results;
     }
 
-    function details($f3, $args) {
-        $placeId = empty($args["placeId"]) ? NULL : $args["placeId"];
-        $placeId = urlencode($placeId);
-        $placeId = "ChIJ4QQq_H00GQ0R1PhmnSP7o3E";
-
-        $url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=".$placeId."&key=".$_ENV["GOOGLE_API_KEY"];
+    function reverse($f3, $lat, $lng) {
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=".$lat.",".$lng."&key=".$_ENV["GOOGLE_API_KEY"];
         $data = getJson($url);
 
-        var_dump($data);
+        $details = $data["results"][0];
+
+        $address = new Address();
+        $address->lat = $details["geometry"]["location"]["lat"];
+        $address->lng = $details["geometry"]["location"]["lng"];
+        $address->sourceGeocoder = "googlemaps";
+        $address->sourceId = $details["place_id"] ?? NULL;
+
+        foreach ($details["address_components"] as $addressComponent) {
+            switch ($addressComponent["types"][0]) {
+                case "street_number":
+                    $address->housenumber = $addressComponent["long_name"];
+                    break;
+                case "route":
+                    $address->street = $addressComponent["long_name"];
+                    break;
+                case "locality":
+                    $address->city = $addressComponent["long_name"];
+                    break;
+                case "country":
+                    $address->country = $addressComponent["long_name"];
+                    break;
+                case "postal_code":
+                    $address->postcode = $addressComponent["long_name"];
+                    break;
+
+            }
+        }
+        $address->name = $address->getAddress();
+        $address->category = str_replace("_", " ", ucfirst($details["types"][0]));
+        return $address;
     }
 
-    function reverse($f3, $args) {
+    function getDetails($placeId) {
+        $url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=".$placeId."&key=".$_ENV["GOOGLE_API_KEY"];
+        $data = getJson($url);
+        return $data["result"];
+    }
+
+    /*
+
+    function findPlace($f3, $args) {
         $lat = $f3->get("GET.lat");
         $lng = $f3->get("GET.lng");
         $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=".$lat.",".$lng."&radius=1000&type=restaurant&key=".$_ENV["GOOGLE_API_KEY"];
@@ -46,7 +116,7 @@ class GeocoderGoogle extends Geocoder {
         $f3->set("results", $results);
         echo Template::instance()->render("results.html");
     }
-
+    */
 }
 
 
@@ -67,6 +137,7 @@ function getJson($url) {
 
     $jsonData = json_decode($response, true);
     if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
+        echo $response;
         return array(
             "error" => "Error decoding JSON: ".json_last_error_msg()
         );
