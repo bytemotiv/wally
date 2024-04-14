@@ -1,6 +1,6 @@
 <div class="header" style="--color: {{ @category->color }}">
     <div class="title">
-        {{ @marker->name }}
+        {{ @marker->name | raw }}
     </div>
 
     <div class="category" hx-get="{{ "markerCategory", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">

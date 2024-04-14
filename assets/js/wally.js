@@ -160,17 +160,47 @@ function filterByRating(rating) {
 
 
 function locateUser() {
+    /*
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var userLocation = [position.coords.latitude, position.coords.longitude];
             map.flyTo(userLocation);
             userPosition.setLatLng(userLocation);
         }, function(error) {
-            console.error("Error getting user location:", error);
+            alert("Error getting user location:" + error.code + " / " + error.message);
         });
     } else {
-        console.error("Geolocation is not supported by your browser");
+        alert("Geolocation is not supported by your browser");
     }
+    */
+    if ( navigator.permissions && navigator.permissions.query) {
+        //try permissions APIs first
+        navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+            // Will return ['granted', 'prompt', 'denied']
+            const permission = result.state;
+            if ( permission === 'granted' || permission === 'prompt' ) {
+                _onGetCurrentLocation();
+            }
+        });
+      } else if (navigator.geolocation) {
+        //then Navigation APIs
+        _onGetCurrentLocation();
+      }
+
+      function _onGetCurrentLocation () {
+          const options = {
+                  enableHighAccuracy: true,
+                  timeout: 5000,
+                  maximumAge: 0
+          };
+          navigator.geolocation.getCurrentPosition( function (position) {
+            var userLocation = [position.coords.latitude, position.coords.longitude];
+            map.flyTo(userLocation);
+            userPosition.setLatLng(userLocation);
+          }, function (error) {
+            alert("Error getting user location:" + error.code + " / " + error.message);
+          }, options)
+      }
 }
 
 // --------------------------------------------------------------------------------------------------------------------

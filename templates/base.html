@@ -103,18 +103,18 @@
             </button>
         </div>
 
-        <div id="details"></div>
+        <div id="drawers">
+            <div class="drawer" data-drawer="marker" onclick="extendMarker()"></div>
+            <div class="drawer" data-drawer="categories"></div>
+            <div class="drawer" data-drawer="ratings"></div>
 
-        <div class="drawer" data-drawer="marker" onclick="extendMarker()"></div>
-        <div class="drawer" data-drawer="categories"></div>
-        <div class="drawer" data-drawer="ratings"></div>
+            <div class="drawer" data-drawer="searchresult">
+                <include href="search-result.html" />
+            </div>
 
-        <div class="drawer" data-drawer="searchresult">
-            <include href="search-result.html" />
-        </div>
-
-        <div class="drawer" data-drawer="ping">
-            <include href="map-ping.html" />
+            <div class="drawer" data-drawer="ping">
+                <include href="map-ping.html" />
+            </div>
         </div>
 
         <div id="null"></div>

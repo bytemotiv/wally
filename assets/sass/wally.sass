@@ -55,13 +55,18 @@ body
     height: 100dvh
     margin: 0
     overflow: hidden
+    max-height: 100vh
     padding: 0
+    overscroll-behavior: contain
+    -webkit-overflow-scrolling: touch
+    overflow-scrolling: touch
+    touch-action: manipulation
 
 main
-    height: 100%
+    height: 100dvh
+    max-height: 100dvh
     position: relative
     width: 100%
-
 
 button.primary
     cursor: pointer
@@ -405,6 +410,14 @@ input.category-edit
 
 // --------------------------------------------------------------------------------------------------------------------
 
+#drawers
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    height: 100dvh
+    overflow: hidden
+
 .drawer
     background: #fff
     opacity: .6
@@ -530,7 +543,8 @@ li.listitem
 
     &:hover,
     &.active
-        color: #000000
+        //color: #000000
+        color: red
 
     .icon
         align-items: center
