@@ -46,6 +46,14 @@ window.addEventListener("DOMContentLoaded", function () {
     });
     mapPing.addTo(map);
 
+    map.on("zoom", e => {
+        if (map.getZoom() < 12) {
+            document.querySelector("#map").classList.add("zoomedout");
+        } else {
+            document.querySelector("#map").classList.remove("zoomedout");
+        }
+    });
+
     map.on("click", e => {
         showMapPing(e.latlng.lat, e.latlng.lng);
     });

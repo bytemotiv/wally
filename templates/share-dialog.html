@@ -1,0 +1,21 @@
+<div class="header">
+    <h1>Sharing {{ @sharetype }}</h1>
+    <button onclick="closeDialog()">
+        <i class="ph ph-x"></i>
+    </button>
+</div>
+
+<p>Here is a link to share the {{ @sharetype }} you selected.</p>
+<p>Please not that the map behind this link is read-only.</p>
+<div class="field">
+    <input type="text" readonly value="{{ @link }}">
+    <button onclick="copyToClipboard('{{ @link }}')">
+        <i class="ph ph-copy"></i>
+    </button>
+</div>
+<script>
+    function copyToClipboard(content) {
+        navigator.clipboard.writeText(content);
+    }
+
+</script>

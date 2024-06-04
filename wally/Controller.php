@@ -59,6 +59,10 @@ class Controller {
     function __construct() {
         $f3=Base::instance();
 
+        $f3->set("CACHE", true);
+
+        $f3->set("loggedin", false);
+
         // create database if needed
         $db = new DB\SQL($f3->get("db"));
 

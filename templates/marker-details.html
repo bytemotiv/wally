@@ -77,24 +77,30 @@
 </div>
 
 <div class="footer">
-    <div class="button" onclick="deleteMarker({{ @marker->id }})">
-        <i class="ph ph-trash"></i>
-        <span>Delete</span>
-    </div>
+    <check if="{{ @loggedin }}">
+        <div class="button" onclick="deleteMarker({{ @marker->id }})">
+            <i class="ph ph-trash"></i>
+            <span>Delete</span>
+        </div>
+    </check>
+
     <div class="button" onclick="hideMarkerDetails()">
         <i class="ph ph-x"></i>
         <span>Close</span>
     </div>
-    <div class="button" hx-get="{{ "markerEdit", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
-        <i class="ph ph-pencil-simple-line"></i>
-        <span>Edit</span>
-    </div>
-    <div class="button" onclick="shareMarker()">
+
+    <check if="{{ @loggedin }}">
+        <div class="button" hx-get="{{ "markerEdit", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
+            <i class="ph ph-pencil-simple-line"></i>
+            <span>Edit</span>
+        </div>
+    </check>
+
+    <div class="button" hx-get="{{ "shareMarker", "marker=".@marker->id | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
         <i class="ph ph-share-network"></i>
         <span>Share</span>
     </div>
 </div>
-
 
 <script>
 
@@ -120,21 +126,5 @@ function deleteMarker(markerId) {
         loadMarkers();
     }
 }
-
-async function shareMarker() {
-    var url = window.location + "{{ "markersDetails" | alias }}";
-    try {
-        await navigator.clipboard.writeText(url);
-        Toastify({
-            text: "URL copied to clipboard",
-            duration: 1500,
-            close: true,
-        }).showToast();
-    } catch (error) {
-        console.error(error.message);
-    }
-}
-
-//loadMarkers();
 
 </script>

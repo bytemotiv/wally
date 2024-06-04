@@ -16,7 +16,6 @@ class Wally extends Controller {
         $markers = $marker->find();
         $f3->set("markers", $markers);
 
-
         /*
         $tokenCookie = $f3->get("COOKIE.token_login", NULL);
         $tokenArgs = empty($args["token"]) ? NULL : $args["token"];

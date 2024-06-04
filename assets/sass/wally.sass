@@ -106,7 +106,8 @@ button.secondary
     position: fixed
     z-index: 1
 
-    &.activesearch
+    &.activesearch,
+    &.zoomedout
         .wally-marker
             div
                 background: var(--color, #000)
@@ -815,3 +816,56 @@ div.tags
     input
         margin: 1rem 0 0 0
         @include inputField
+
+dialog
+    background: #efefef
+    border-radius: 0.5rem
+    border: none
+    max-width: 50vw
+    padding: 2rem
+
+    &::backdrop
+        background: rgb(0, 0, 0, 0.5)
+
+    .header
+        display: flex
+        justify-content: space-between
+        margin: 0 0 1rem 0
+
+        button
+            background: none
+            border: none
+            cursor: pointer
+            font-size: 1.5rem
+
+    h1
+        margin: 0
+
+    input[type="text"][readonly]
+        padding: 0.5rem
+        border-radius: 0.5rem
+        border: none
+
+    .field
+        display: flex
+        gap: 1rem
+
+        input
+            width: 100%
+            flex: 1 1 auto
+
+        button
+            cursor: pointer
+            border-radius: $button-border-radius
+            border: 1px solid $button-color
+            color: $button-color
+            background: $button-background
+            display: flex
+            gap: 1rem
+            justify-content: center
+            align-items: center
+            padding: 0.75rem
+            font-size: 20px
+
+            &:hover
+                background: darken($button-background, 10%)

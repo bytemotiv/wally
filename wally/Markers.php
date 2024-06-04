@@ -4,12 +4,29 @@ class Markers extends Controller {
 
     function geojson($f3, $args) {
         $db = $this->db;
+
         $marker = new DB\SQL\Mapper($db, "markers");
-        $markers = $marker->find();
+        $markers = [];
+
+        $sessionShare = $f3->get("SESSION.share");
+        if ($sessionShare == NULL) {
+            $markers = $marker->find();
+        } else {
+            $share = new DB\SQL\Mapper($db, "sharing");
+            $share->load(array("key=?", $sessionShare));
+
+            if ($share->type == "marker") {
+                $markers = $marker->find(array("id=?", $share->value));
+            }
+
+            if ($share->type == "category") {
+                $markers = $marker->find(array("category=?", $share->value));
+            }
+        }
+
 
         $category = new DB\SQL\Mapper($db, "categories");
         $categories = [];
-
         $categories[0] = [
             "color" => "#515151",
             "icon" => "cat",
