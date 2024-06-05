@@ -47,6 +47,7 @@ class Markers extends Controller {
                     "id" => $marker->id,
                     "category" => $marker->category,
                     "rating" => $marker->rating,
+                    "title" => $marker->name,
                     "color" => $categories[$marker->category]["color"],
                     "icon" => $categories[$marker->category]["icon"],
                 ],

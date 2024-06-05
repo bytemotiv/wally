@@ -18,12 +18,18 @@ $font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
     background: none
     border: none
     color: $color
-    font-size: 1.5rem
+    font-size: 1.15rem
     height: 2.5rem
     width: 2.5rem
+    transition: all 0.5 ease-in-out
+    transform-origin: center center
 
     &:hover
         color: darken($color, 30%)
+
+    &:active
+        transform: translateY(0.125em) scale(0.98)
+
 
 @mixin inputField
     background: #fff
@@ -45,6 +51,7 @@ $font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
     background: $button-background
     border-radius: $button-border-radius
     border: 1px solid $button-background
+    border: none
     color: $button-color
     cursor: pointer
     display: flex
@@ -54,15 +61,15 @@ $font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
     padding: 0.5rem 0.75rem
     text-transform: uppercase
     transition: all 0.5 ease-in-out
+    transform-origin: center center
 
     &:hover
         background: darken($button-background, 10%)
-        box-shadow: 5.5px 5.5px 10px rgba(0, 0, 0, 0.035), 50px 50px 40px rgba(0, 0, 0, 0.07)
+        box-shadow: 2px 2px 5.3px rgba(0, 0, 0, 0.04), 6.7px 6.7px 17.9px rgba(0, 0, 0, 0.06), 30px 30px 80px rgba(0, 0, 0, 0.1)
 
     &:active
-        transform: translateY(0.1rem)
         background: darken($button-background, 20%)
-        box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
+        transform: translateY(0.125em) scale(0.98)
 
 
 @mixin buttonSecondary
@@ -81,3 +88,8 @@ $font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 
     &:hover
         background: darken($button-color, 10%)
+        box-shadow: 2px 2px 5.3px rgba(0, 0, 0, 0.04), 6.7px 6.7px 17.9px rgba(0, 0, 0, 0.06), 30px 30px 80px rgba(0, 0, 0, 0.1)
+
+    &:active
+        background: darken($button-color, 20%)
+        transform: translateY(0.125em) scale(0.98)
