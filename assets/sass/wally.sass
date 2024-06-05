@@ -474,6 +474,12 @@ input.category-edit
         z-index: 5
         max-height: 100svh
 
+        @include desktop
+            max-height: none
+            height: 100vh
+            width: 25rem
+            border-top-left-radius: 0
+
         ul
             overflow: auto
             max-height: calc(100svh - 5rem)
@@ -582,6 +588,11 @@ li.listitem
     max-height: 20rem
     transition: all 0.3s ease-in-out
 
+    @include desktop
+        height: 100vh
+        max-height: none
+        width: 25rem
+
     &:before
         display: block
         position: absolute
@@ -594,6 +605,9 @@ li.listitem
         z-index: 10
         transition: opacity 0.3s ease-in-out
         opacity: 1
+
+        @include desktop
+            display: none
 
     &.extended
         max-height: 100svh
@@ -620,6 +634,12 @@ li.listitem
         grid-template-rows: auto
         pointer-events: all
         position: relative
+
+        @include desktop
+            border-top-left-radius: 0
+
+            .arrow
+                display: none
 
         .arrow
             opacity: 1
