@@ -41,7 +41,8 @@ class Share extends Controller {
 
         $protocol = !empty($_SERVER["HTTPS"]) ? "https://" : "http://";
         $hostname = $_SERVER["HTTP_HOST"];
-        $port = $_SERVER["SERVER_PORT"] == 80 || $_SERVER["SERVER_PORT"] == 443 ? "" : ":".$_SERVER["SERVER_PORT"];
+        //$port = $_SERVER["SERVER_PORT"] == 80 || $_SERVER["SERVER_PORT"] == 443 ? "" : ":".$_SERVER["SERVER_PORT"];
+        $port = "";
 
         $link = $protocol.$hostname.$port."/share/".$share->key;
 
