@@ -127,7 +127,7 @@ function centerOnVisibleMarkers() {
             bounds.extend(marker.getLatLng());
         }
     });
-    map.fitBounds(bounds, { "padding": [15, 15] });
+    map.fitBounds(bounds, { "padding": [25, 25] });
 }
 
 function getCookie(name) {

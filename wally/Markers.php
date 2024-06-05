@@ -29,7 +29,7 @@ class Markers extends Controller {
         $categories = [];
         $categories[0] = [
             "color" => "#515151",
-            "icon" => "cat",
+            "icon" => "map-pin",
         ];
 
         foreach ($category->find() as $cat) {
@@ -189,7 +189,7 @@ class Markers extends Controller {
             $category = new stdClass();
             $category->name = "No Category";
             $category->color = "#515151";
-            $category->icon = "cat";
+            $category->icon = "map-pin";
         }
         $f3->set("category", $category);
 
@@ -298,7 +298,7 @@ class Markers extends Controller {
             $category = new stdClass();
             $category->name = "No Category";
             $category->color = "#515151";
-            $category->icon = "cat";
+            $category->icon = "map-pin";
         }
         $f3->set("category", $category);
 
