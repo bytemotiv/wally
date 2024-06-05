@@ -41,17 +41,18 @@ $font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 
 
 @mixin buttonPrimary
-    cursor: pointer
+    align-items: center
+    background: $button-background
     border-radius: $button-border-radius
     border: 1px solid $button-background
     color: $button-color
-    background: $button-background
+    cursor: pointer
     display: flex
+    font-size: 0.9rem
     gap: 1rem
     justify-content: center
-    align-items: center
-    padding: 0.75rem
-    font-size: 1rem
+    padding: 0.5rem 0.75rem
+    text-transform: uppercase
     transition: all 0.5 ease-in-out
 
     &:hover
@@ -65,16 +66,17 @@ $font-default: IBMPlexSans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe
 
 
 @mixin buttonSecondary
-    cursor: pointer
+    align-items: center
+    background: $button-color
     border-radius: $button-border-radius
     border: 1px solid $button-background
     color: $button-background
-    background: $button-color
+    cursor: pointer
     display: flex
+    font-size: 0.9rem
     gap: 1rem
     justify-content: center
-    align-items: center
-    padding: 0.75rem
+    padding: 0.5rem 0.75rem
     text-transform: uppercase
 
     &:hover

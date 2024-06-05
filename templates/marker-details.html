@@ -61,6 +61,9 @@
     </div>
     <div class="text">
         <ul class="tags">
+            <check if="{{ sizeof(@tags) == 0 }}">
+                <li class="empty">No tags yet</li>
+            </check>
             <repeat group="{{ @tags }}" value="{{ @tag }}">
                 <li data-counter="{{ @tag->amount }}">{{ @tag->tag }}</li>
             </repeat>
@@ -72,6 +75,9 @@
     <div class="title">
         <b>Notes</b>
     </div>
+    <check if="{{ @marker->notes == null }}">
+        <p class="empty">No notes yet.</p>
+    </check>
     <check if="{{ @marker->notes != null }}">
         <p>{{ @marker->notes | nl2br }}</p>
     </check>
@@ -79,7 +85,7 @@
 
 </div>
 
-<div class="footer">
+<div class="footer" style="--color: {{ @category->color }}">
     <check if="{{ @LOGIN }}">
         <div class="button" onclick="deleteMarker({{ @marker->id }})">
             <i class="ph ph-trash"></i>

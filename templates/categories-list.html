@@ -32,7 +32,7 @@
             <div onclick="filterByCategory({{ @category->id }})" class="name">{{ @category->name }}</div>
             <div onclick="filterByCategory({{ @category->id }})" class="stats">{{ @category->amount }} Places</div>
             <div class="options">
-                <button class="edit" hx-get="{{ "shareCategory", "category=".@category->id | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
+                <button class="share" hx-get="{{ "shareCategory", "category=".@category->id | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
                     <i class="ph ph-share-network"></i>
                 </button>
                 <button class="edit" hx-get="{{ "categoryEdit", "id=".@category->id | alias }}" hx-target="[data-drawer='categories']">

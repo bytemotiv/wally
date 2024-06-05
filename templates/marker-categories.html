@@ -21,8 +21,8 @@
         </li>
     </repeat>
 
-    <li>
-        <button class="primary" hx-get="{{ "categoryEditMarker", "id=null,marker=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
+    <li class="listitem-button">
+        <button class="secondary" hx-get="{{ "categoryEditMarker", "id=null,marker=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
             New Category
         </button>
     </li>

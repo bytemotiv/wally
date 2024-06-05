@@ -412,6 +412,7 @@ input.category-edit
         padding: 1rem
         z-index: 5
         max-height: 100svh
+        box-shadow: 5.5px 5.5px 10px rgba(0, 0, 0, 0.035), 50px 50px 40px rgba(0, 0, 0, 0.07)
 
         @include desktop
             max-height: none
@@ -476,6 +477,11 @@ input.category-edit
         button.primary
             width: 100%
 
+li.listitem-button
+    margin: 1rem 0 0 0
+
+    button
+        width: 100%
 
 li.listitem
     display: grid
@@ -487,7 +493,7 @@ li.listitem
     cursor: pointer
     align-items: center
     padding: 0.75rem 0
-    color: #515151
+    color: #616161
 
     &.small
         grid-template-areas: "icon name options"
@@ -495,8 +501,7 @@ li.listitem
 
     &:hover,
     &.active
-        //color: #000000
-        color: red
+        color: #000000
 
     .icon
         align-items: center
@@ -524,6 +529,9 @@ li.listitem
         justify-content: flex-end
 
         button.edit
+            @include buttonTouch
+
+        button.share
             @include buttonTouch
 
 .drawer[data-drawer="marker"]
@@ -574,7 +582,7 @@ li.listitem
         border-top-right-radius: 1rem
         background: var(--color, #515151)
         color: #fff
-        padding: 1rem
+        padding: 0
         display: grid
         grid-template-columns: 1fr 1fr
         grid-template-rows: auto
@@ -601,6 +609,8 @@ li.listitem
         .title
             color: #fff
             grid-column: span 2
+            padding: 1rem
+            margin: 0
 
             button
                 @include buttonTouch(#eee)
@@ -610,6 +620,12 @@ li.listitem
             align-items: center
             display: flex
             gap: 0.5rem
+            cursor: pointer
+            padding: 1rem
+            transition: all 0.2s ease-in-out
+
+            &:hover
+                text-shadow: 0 0 2rem rgba(0, 0, 0, 0.75)
 
             i.ph
                 font-size: 1.5rem
@@ -640,6 +656,9 @@ li.listitem
         button.edit
             @include buttonTouch
 
+        button.share
+            @include buttonTouch
+
         &.notes
             flex-direction: column
 
@@ -651,6 +670,9 @@ li.listitem
 
             p
                 margin: 0 0 1rem 0
+
+                &.empty
+                    color: #818181
 
             textarea
                 @include inputField
@@ -714,7 +736,7 @@ li.listitem
                     border: none
 
                 input[type="file"]
-                    background: red
+                    background: #fff
                     opacity: 0
                     inset: 0
                     position: absolute
@@ -765,7 +787,7 @@ li.listitem
 
             &:hover
                 color: darken(#818181, 30%)
-
+                text-shadow: var(--color) 0 0 1.5rem
 
 ul.tags
     display: flex
@@ -783,6 +805,10 @@ ul.tags
         font-size: 14px
         display: flex
         align-items: center
+
+        &.empty
+            background: none
+            color: #818181
 
     button
         border: none
