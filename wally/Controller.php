@@ -51,10 +51,28 @@ class Controller {
         if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
             $login = $f3->get("SESSION.login");
             $share = $f3->get("SESSION.share");
+
+            $f3->set("LOGIN", false);
+            $f3->set("SHARE", false);
+
             if ($login == NULL) {
-                $f3->set("LOGIN", false);
                 if ($share == NULL) {
                     $f3->reroute("@login", false);
+                } else {
+                    $db = $this->db;
+                    $shareDetails = new DB\SQL\Mapper($db, "sharing");
+                    $shareDetails->load(array("key=?", $share));
+                    $f3->set("SHARE", $shareDetails);
+
+                    $f3->set("SHARE_title", "Sharing ".$shareDetails->key);
+
+                    if ($shareDetails->type == "category") {
+                        $category = new DB\SQL\Mapper($db, "categories");
+                        $category->load(array("id=?", $shareDetails->value));
+                        $shareTitle = "Markers in the category <b>".$category->name."</b>";
+                        $f3->set("SHARE_category", $category);
+                        $f3->set("SHARE_title", $shareTitle);
+                    }
                 }
             } else {
                 $f3->set("LOGIN", $login);
