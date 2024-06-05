@@ -601,10 +601,13 @@ li.listitem
 
         &::before
             opacity: 0
-            pointer-events: none
+            pointer-events: all
 
         .header
             pointer-events: all
+
+            .arrow
+                opacity: 0
 
     .header
         border-top-left-radius: 1rem
@@ -615,7 +618,16 @@ li.listitem
         display: grid
         grid-template-columns: 1fr 1fr
         grid-template-rows: auto
-        pointer-events: none
+        pointer-events: all
+        position: relative
+
+        .arrow
+            opacity: 1
+            transition: all 0.2s ease-in-out
+            position: absolute
+            top: 0.5rem
+            left: 50%
+            transform: translateX(-50%)
 
         input
             @include inputField
