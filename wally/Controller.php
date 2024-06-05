@@ -9,8 +9,8 @@ class Helper extends \Prefab {
 // TODO: https://fatfreeframework.com/3.8/optimization#keeping-javascript-and-css-on-a-healthy-diet
 class AssetHelper {
     static public function importCSS($args) {
-		$attr = $args["@attrib"];
-		$src = $attr["src"];
+        $attr = $args["@attrib"];
+        $src = $attr["src"];
 
         $file = __DIR__ ."/../".$src;
 
@@ -23,8 +23,8 @@ class AssetHelper {
     }
 
     static public function importJS($args) {
-		$attr = $args["@attrib"];
-		$src = $attr["src"];
+        $attr = $args["@attrib"];
+        $src = $attr["src"];
 
         $file = __DIR__ ."/../".$src;
 
@@ -45,14 +45,17 @@ class Controller {
 
     // HTTP route pre-processor
     function beforeroute($f3) {
-       // check for either login or a share token if accessing a page other than the login or the share view
-       $requestPath = $f3->get("PARAMS.0");
-       if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
-           $login = $f3->get("SESSION.login");
-           if ($login == null) {
-               $f3->reroute("@login", false);
-           }
-       }
+        // check for either login or a share token if accessing a page other than the login or the share view
+        $requestPath = $f3->get("PARAMS.0");
+        if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
+            $login = $f3->get("SESSION.login");
+            if ($login == null) {
+                $f3->set("LOGIN", false);
+                $f3->reroute("@login", false);
+            } else {
+                $f3->set("LOGIN", $login);
+            }
+        }
     }
 
     // HTTP route post-processor

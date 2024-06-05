@@ -77,7 +77,7 @@
 </div>
 
 <div class="footer">
-    <check if="{{ @loggedin }}">
+    <check if="{{ @LOGIN }}">
         <div class="button" onclick="deleteMarker({{ @marker->id }})">
             <i class="ph ph-trash"></i>
             <span>Delete</span>
@@ -89,7 +89,7 @@
         <span>Close</span>
     </div>
 
-    <check if="{{ @loggedin }}">
+    <check if="{{ @LOGIN }}">
         <div class="button" hx-get="{{ "markerEdit", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']">
             <i class="ph ph-pencil-simple-line"></i>
             <span>Edit</span>
