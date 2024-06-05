@@ -49,9 +49,12 @@ class Controller {
         $requestPath = $f3->get("PARAMS.0");
         if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
             $login = $f3->get("SESSION.login");
-            if ($login == null) {
-                $f3->set("LOGIN", false);
-                $f3->reroute("@login", false);
+            $share = $f3->get("SESSION.share");
+            if ($login == NULL) {
+                if ($share == NULL) {
+                    $f3->set("LOGIN", false);
+                    $f3->reroute("@login", false);
+                }
             } else {
                 $f3->set("LOGIN", $login);
             }
@@ -65,7 +68,6 @@ class Controller {
     // Instantiate class
     function __construct() {
         $f3=Base::instance();
-
         $f3->set("CACHE", true);
 
         // create database if needed

@@ -12,8 +12,8 @@ window.addEventListener("DOMContentLoaded", function () {
     map.setView([0, 0], 13);
 
     L.tileLayer(
-        //"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+        //"https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
         //"https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
             minZoom: 3,

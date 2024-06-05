@@ -12,7 +12,6 @@ class Share extends Controller {
         if ($share->dry()) {
             echo "Invalid share link";
         } else {
-            echo "Showing: ".$share->type." #".$share->value;
             $f3->set("SESSION.share", $share->key);
             $f3->reroute("@index", false);
         }
