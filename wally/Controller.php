@@ -45,14 +45,18 @@ class Controller {
 
     // HTTP route pre-processor
     function beforeroute($f3) {
-        //$db=$this->db;
-        // Prepare user menu
-        //$f3->set("menu", $db->exec('SELECT slug,title FROM pages ORDER BY position;'));
+       // check for either login or a share token if accessing a page other than the login or the share view
+       $requestPath = $f3->get("PARAMS.0");
+       if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
+           $login = $f3->get("SESSION.login");
+           if ($login == null) {
+               $f3->reroute("@login", false);
+           }
+       }
     }
 
     // HTTP route post-processor
     function afterroute() {
-        //echo Template::instance()->render("base.html");
     }
 
     // Instantiate class
@@ -60,8 +64,6 @@ class Controller {
         $f3=Base::instance();
 
         $f3->set("CACHE", true);
-
-        $f3->set("loggedin", false);
 
         // create database if needed
         $db = new DB\SQL($f3->get("db"));
