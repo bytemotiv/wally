@@ -544,7 +544,7 @@ li.listitem
     height: 20rem
     max-height: 20rem
     transition: all 0.3s ease-in-out
-    box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
+    box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015), 100px 100px 80px rgba(0, 0, 0, 0.07)
 
     @include desktop
         height: 100vh
@@ -628,6 +628,10 @@ li.listitem
             padding: 1rem
             transition: all 0.2s ease-in-out
 
+            &.no-action
+                cursor: default
+                pointer-events: none
+
             &:hover
                 text-shadow: 0 0 2rem rgba(0, 0, 0, 0.75)
 
@@ -683,6 +687,9 @@ li.listitem
 
         &.photos
             overflow-x: auto
+
+            .empty
+                color: #818181
 
             .photo
                 width: 150px

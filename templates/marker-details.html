@@ -3,12 +3,22 @@
         {{ @marker->name | raw }}
     </div>
 
-    <div class="category" hx-get="{{ "markerCategory", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">
+    <check if="{{ @LOGIN }}">
+        <div class="category" hx-get="{{ "markerCategory", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">
+    </check>
+    <check if="!{{ @LOGIN }}">
+        <div class="category no-action">
+    </check>
         <i class="ph ph-{{ @category->icon }}"></i>
         {{ @category->name }}
     </div>
 
-    <div class="rating" hx-get="{{ "markerRating", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">
+    <check if="{{ @LOGIN }}">
+        <div class="rating" hx-get="{{ "markerRating", "id=".@marker->id | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML">
+    </check>
+    <check if="!{{ @LOGIN }}">
+        <div class="rating no-action">
+    </check>
         <i class="ph ph-{{ @rating->icon }}"></i>
         {{ @rating->name }}
     </div>
@@ -35,6 +45,9 @@
     </div>
 
 <div class="photos group">
+    <check if="{{ sizeof(@uploads) < 1 }}">
+        <p class="empty">No photos yets</p>
+    </check>
     <repeat group="{{ @uploads }}" value="{{ @upload }}">
         <div class="photo">
             <a href="{{ @upload->image }}" target="_blank">
@@ -43,16 +56,18 @@
         </div>
     </repeat>
 
-    <div class="photo-new">
-        <form id="upload" hx-encoding="multipart/form-data" hx-post="{{ "markerUpload" | alias }}" hx-target="[data-drawer='marker']">
-            <img class="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
-            <input type="file" name="file" accept="image/*" capture="camera" required onchange="previewImage(event)"/>
-            <button><i class="ph ph-check"></i></button>
-            <div class="repeat">
-                <i class="ph ph-camera-plus"></i>
-            </div>
-        </form>
-    </div>
+    <check if="{{ @LOGIN }}">
+        <div class="photo-new">
+            <form id="upload" hx-encoding="multipart/form-data" hx-post="{{ "markerUpload" | alias }}" hx-target="[data-drawer='marker']">
+                <img class="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+                <input type="file" name="file" accept="image/*" capture="camera" required onchange="previewImage(event)"/>
+                <button><i class="ph ph-check"></i></button>
+                <div class="repeat">
+                    <i class="ph ph-camera-plus"></i>
+                </div>
+            </form>
+        </div>
+    </check>
 </div>
 
 <div class="tags group">
