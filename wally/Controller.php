@@ -51,8 +51,8 @@ class Controller {
             $login = $f3->get("SESSION.login");
             $share = $f3->get("SESSION.share");
             if ($login == NULL) {
+                $f3->set("LOGIN", false);
                 if ($share == NULL) {
-                    $f3->set("LOGIN", false);
                     $f3->reroute("@login", false);
                 }
             } else {
