@@ -80,11 +80,8 @@ function loadMarkers() {
             return;
         }
 
-        var bounds = new L.LatLngBounds();
         L.geoJSON(xhr.response, {
             pointToLayer: function (feature, latlng) {
-                bounds.extend(latlng);
-
                 var marker = L.marker(latlng, {
                     icon: L.divIcon({
                         iconSize: [30, 30],
@@ -106,13 +103,14 @@ function loadMarkers() {
                 });
 
                 marker.addTo(markerLayer);
+                marker._icon.style.display = "block";
             }
         })
 
         var lastCenter = getCookie("lastCenter");
         var lastZoom = getCookie("lastZoom");
         if (lastCenter == null && lastZoom == null) {
-            map.fitBounds(bounds);
+            centerOnVisibleMarkers();
         } else {
             var ll = lastCenter.split("|");
             map.setView([ll[0], ll[1]]);
@@ -120,6 +118,16 @@ function loadMarkers() {
         }
     };
     xhr.send();
+}
+
+function centerOnVisibleMarkers() {
+    var bounds = new L.LatLngBounds();
+    markerLayer.eachLayer(marker => {
+        if (marker._icon.style.display == "block") {
+            bounds.extend(marker.getLatLng());
+        }
+    });
+    map.fitBounds(bounds, { "padding": [15, 15] });
 }
 
 function getCookie(name) {
@@ -138,11 +146,13 @@ function filterByCategory(categoryId) {
     currentCategory = categoryId;
     markerLayer.eachLayer(marker => {
         if (categoryId === "*" || marker.options.properties && marker.options.properties.category === categoryId) {
-            marker._icon.style.display = 'block';
+            marker._icon.style.display = "block";
         } else {
-            marker._icon.style.display = 'none';
+            marker._icon.style.display = "none";
         }
     });
+    centerOnVisibleMarkers();
+
     document.querySelectorAll("[data-drawer='categories'] li").forEach(li => {
         li.classList.toggle("active", li.dataset.category == categoryId);
     });
@@ -159,6 +169,8 @@ function filterByRating(rating) {
             marker._icon.style.display = 'none';
         }
     });
+    centerOnVisibleMarkers();
+
     document.querySelectorAll("[data-drawer='ratings'] li").forEach(li => {
         li.classList.toggle("active", li.dataset.rating == rating);
     });
@@ -228,6 +240,7 @@ function toggleDrawer(area, force=null) {
 // --- Map Ping
 
 function hideMapPing() {
+    mapPing._icon.style.display = "none";
     mapPing.setOpacity(0);
     toggleDrawer("ping", false);
 }
@@ -236,6 +249,7 @@ function showMapPing(lat, lng) {
     hideMarkerDetails();
 
     mapPing.setOpacity(1);
+    mapPing._icon.style.display = "block";
     mapPing.setLatLng([lat, lng]);
     lat = lat.toFixed(4);
     lng = lng.toFixed(4);
