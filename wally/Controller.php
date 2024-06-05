@@ -46,6 +46,7 @@ class Controller {
     // HTTP route pre-processor
     function beforeroute($f3) {
         // check for either login or a share token if accessing a page other than the login or the share view
+        new Session();
         $requestPath = $f3->get("PARAMS.0");
         if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
             $login = $f3->get("SESSION.login");
@@ -79,7 +80,6 @@ class Controller {
         }
 
         // store DB variable
-        new DB\SQL\Session($db);
         $this->db=$db;
 
         \Preview::instance()->filter("nl2br","\Helper::instance()->nl2br");
