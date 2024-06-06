@@ -46,7 +46,9 @@
 
 <div class="photos group">
     <check if="{{ sizeof(@uploads) < 1 }}">
-        <p class="empty">No photos yets</p>
+        <check if="!{{ @LOGIN }}">
+            <p class="empty">No photos yets</p>
+        </check>
     </check>
     <repeat group="{{ @uploads }}" value="{{ @upload }}">
         <div class="photo">
