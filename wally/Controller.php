@@ -75,6 +75,14 @@ class Controller {
                         $f3->set("SHARE_category", $category);
                         $f3->set("SHARE_title", $shareTitle);
                     }
+
+                    if ($shareDetails->type == "marker") {
+                        $marker = new DB\SQL\Mapper($db, "markers");
+                        $marker->load(array("id=?", $shareDetails->value));
+                        $shareTitle = "<b>".$marker->name."</b>";
+                        $f3->set("SHARE_title", $shareTitle);
+                    }
+
                 }
             } else {
                 $f3->set("LOGIN", $login);

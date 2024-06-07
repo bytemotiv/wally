@@ -43,10 +43,13 @@
 
         <check if="{{ @SHARE }}">
             <div id="topbar">
-                <div onclick="centerOnVisibleMarkers()">
+                <div>
                     {{ @SHARE_title | raw }}
                 </div>
                 <div>
+                    <button class="primary" onclick="centerOnVisibleMarkers()">
+                        <i class="ph ph-map-trifold"></i>
+                    </button>
                     <button class="primary" hx-get="{{ "shareCategory", @SHARE->type."=".@SHARE->value | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
                         <i class="ph ph-share-network"></i>
                     </button>
