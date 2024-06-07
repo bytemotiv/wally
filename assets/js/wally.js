@@ -248,6 +248,7 @@ function locateUser() {
 // --- General Helpers
 
 function toggleDrawer(area, force=null) {
+    hideQuicksearch();
     if (force !== null) {
         document.querySelector(`[data-drawer="${area}"]`).classList.toggle("active", force);
     } else {
@@ -266,6 +267,7 @@ function hideMapPing() {
 
 function showMapPing(lat, lng) {
     hideMarkerDetails();
+    hideQuicksearch();
 
     mapPing.setOpacity(1);
     mapPing._icon.style.display = "block";
@@ -316,5 +318,4 @@ function hideMarkerDetails() {
         layer._icon.classList.remove("selected");
     });
 }
-
 

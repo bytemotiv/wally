@@ -131,7 +131,7 @@ button.secondary
 
 
 #searchbar
-    box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
+    //box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
     display: flex
     overflow: hidden
     position: absolute
@@ -143,8 +143,15 @@ button.secondary
     border-radius: 8px
     height: 40px
 
+    border: none
+    background: #fff
+    box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
+    padding: 0.5rem 2rem
+
+
     @include desktop
         left: 25.5rem
+        right: 25.5rem
 
     i
         font-size: 1.25rem
@@ -155,7 +162,8 @@ button.secondary
         z-index: 2
 
     input
-        background: rgba(255, 255, 255, 0.6)
+        //background: rgba(255, 255, 255, 0.6)
+        background: #fff
         border-radius: 0
         border: none
         width: 100%
@@ -165,9 +173,11 @@ button.secondary
         z-index: 1
         height: 40px
 
+
         &:focus,
         &:not(:empty)
             background: rgba(255, 255, 255, 1)
+            border: none
 
             & ~ button
                 opacity: 1
@@ -200,10 +210,14 @@ button.secondary
     z-index: 10
     left: 0.5rem
     right: 0.5rem
-    top: 3rem
+    top: 3.5rem
     box-shadow: 0 0 1rem rgba(0,0,0,0.1)
-    border-radius: 4px
+    border-radius: 8px
     overflow: hidden
+
+    @include desktop
+        left: 25.5rem
+        right: 25.5rem
 
     .result
         background: #fff

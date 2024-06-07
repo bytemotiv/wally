@@ -104,6 +104,15 @@
                 }
             }
 
+            function hideQuicksearch() {
+                document.querySelector("#searchbar input").value = "";
+                document.querySelector("#searchresults").innerHTML = "";
+                document.querySelector("#quickresults").style.display = "none";
+                document.querySelectorAll("#quickresults .result").forEach(result => {
+                    result.classList.remove("visible");
+                });
+            }
+
             </script>
 
             <div id="controls">
