@@ -249,6 +249,9 @@ function locateUser() {
 
 function toggleDrawer(area, force=null) {
     hideQuicksearch();
+    if (area != "ping") {
+        hideMapPing();
+    }
     if (force !== null) {
         document.querySelector(`[data-drawer="${area}"]`).classList.toggle("active", force);
     } else {
