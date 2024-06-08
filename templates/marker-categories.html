@@ -9,7 +9,15 @@
 
 <ul>
     <repeat group="{{ @categories }}" value="{{ @category }}">
-        <li class="listitem" data-category="{{ @category->id }}">
+        <li
+            class="listitem"
+            data-category="{{ @category->id }}"
+
+            hx-post="{{ "markerCategory", "id=".@marker->id | alias }}"
+            hx-vals='{"category": "{{ @category->id }}"}'
+            hx-target="[data-drawer='marker']"
+            hx-on::after-request="loadMarkers()"
+        >
             <div class="icon" style="--color: {{ @category->color }}">
                 <i class="ph-bold ph-{{ @category->icon }}"></i>
             </div>
