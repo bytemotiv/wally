@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <title>Wally</title>
+
+    <link rel="manifest" href="manifest.json" />
+    <css src="/assets/css/wally.css"/>
+
+    <script src="/assets/js/htmx.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="login">
+    <main>
+        <form class="setup" action="{{ "setup" | alias }}" method="post">
+            <img src="/assets/images/logo.png" alt="Wally Logo">
+
+            <div>
+                <div>
+                    <h1>Setting up Wally</h1>
+                    <h2>A self-hosted map to collect, curate and share map markers</h2>
+                </div>
+                <p>
+                    Choose a password to access your Wally instance.<br>
+                    No password guidelines given, we are all responsible adults here.
+                </p>
+                <input type="password" name="ADMIN_PASSWORD" placeholder="Enter a strong password">
+
+                <hr>
+
+                <p>
+                    Choose a Geocoder to use
+                </p>
+                <select name="GEOCODER">
+                    <option value="GeocoderNominatim">Nominatim</option>
+                    <option value="GeocoderGoogle" selected>Google Maps API</option>
+                </select>
+
+                <hr>
+
+                <p>
+                    In case you picked the Google Maps API as a geocoder, please supply a valid API Token.
+                </p>
+                <input type="text" name="GOOGLE_API_KEY" placeholder="Enter your API Token">
+
+                <button type="submit" class="primary">Save</button>
+            </div>
+        </form>
+    </main>
+
+</body>
+

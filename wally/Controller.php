@@ -47,12 +47,17 @@ class Controller {
     function beforeroute($f3) {
         // check for either login or a share token if accessing a page other than the login or the share view
         $db = $this->db;
+
         new \DB\SQL\Session($db);
 
         $requestPath = $f3->get("PARAMS.0");
-        if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout")) {
+        if (!str_starts_with($requestPath, "/share") && !str_starts_with($requestPath, "/login") && !str_starts_with($requestPath, "/logout") && !str_starts_with($requestPath, "/setup")) {
             $login = $f3->get("SESSION.login");
             $share = $f3->get("SESSION.share");
+
+            if (!array_key_exists("ADMIN_PASSWORD", $_ENV)) {
+                $f3->reroute("@setup", false);
+            }
 
             $f3->set("LOGIN", false);
             $f3->set("SHARE", false);
@@ -99,13 +104,7 @@ class Controller {
         $f3=Base::instance();
         $f3->set("CACHE", true);
 
-        // create database if needed
         $db = new DB\SQL($f3->get("db"));
-
-        if (file_exists("db/setup.sql")) {
-            $db->exec(explode(";", $f3->read("db/setup.sql")));
-            rename("db/setup.sql", "db/setup.sql_done");
-        }
 
         // store DB variable
         $this->db=$db;
