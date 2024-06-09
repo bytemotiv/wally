@@ -73,7 +73,7 @@
                     </li>
                 </repeat>
             </ul>
-            <input type="text" placeholder="New Tag" onkeypress="addTag(this, event)">
+            <input type="text" placeholder="New Tag" onkeypress="addTag(this, event)" list="tags">
         </div>
 
         <script>
@@ -169,5 +169,6 @@ async function shareMarker() {
 }
 
 loadMarkers();
+updateTags();
 
 </script>

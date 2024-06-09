@@ -322,3 +322,14 @@ function hideMarkerDetails() {
     });
 }
 
+function updateTags() {
+    htmx.ajax(
+        "GET",
+        "tags/datalist",
+        {
+            "target": "datalist#tags",
+            "swap": "innerHTML",
+        }
+    );
+
+}
