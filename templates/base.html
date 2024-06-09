@@ -41,21 +41,7 @@
         <div id="map"></div>
         <div id="marker-tooltip"></div>
 
-        <check if="{{ @SHARE }}">
-            <div id="topbar">
-                <div>
-                    {{ @SHARE_title | raw }}
-                </div>
-                <div>
-                    <button class="primary" onclick="centerOnVisibleMarkers()">
-                        <i class="ph ph-map-trifold"></i>
-                    </button>
-                    <button class="primary" hx-get="{{ "shareCategory", @SHARE->type."=".@SHARE->value | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
-                        <i class="ph ph-share-network"></i>
-                    </button>
-                </div>
-            </div>
-        </check>
+        <include href="actionbar.html" />
 
         <check if="{{ @LOGIN }}">
             <div id="searchbar">
@@ -138,10 +124,6 @@
 
             <div class="drawer" data-drawer="searchresult">
                 <include href="search-result.html" />
-            </div>
-
-            <div class="drawer" data-drawer="ping">
-                <include href="map-ping.html" />
             </div>
         </div>
 

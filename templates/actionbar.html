@@ -1,0 +1,60 @@
+<div id="actionbar">
+    <div class="mode" data-mode="search">
+        <i class="icon ph ph-magnifying-glass"></i>
+        <input type="search" inputmode="search" onkeyup="search(this.value, event)">
+        <button onclick="search(this.parentNode.querySelector('input').value, 'click');">
+            <i class="ph ph-arrow-right"></i>
+        </button>
+    </div>
+
+    <div class="mode" data-mode="view">
+        <div class="title">
+            <check if="{{ @SHARE }}">
+                {{ @SHARE_title | raw }}
+            </check>
+        </div>
+        <div class="buttons">
+            <button class="primary" onclick="centerOnVisibleMarkers()">
+                <i class="ph ph-map-trifold"></i>
+            </button>
+            <button class="primary" hx-get="{{ "shareCategory", "category=1" | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
+                <i class="ph ph-share-network"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="mode" data-mode="ping">
+        <div class="coordinates">
+            <span class="lat">52.429</span>/<span class="lng">13.271</span>
+        </div>
+        <div class="buttons">
+            <button title="Create new Marker here" class="primary" hx-post="{{ "markersCreate" | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML" hx-vals='js:{lat: mapPing.getLatLng().lat, lng: mapPing.getLatLng().lng}' hx-on::after-request="toggleDrawer('marker', true)">
+                <i class="ph ph-map-pin-plus"></i>
+            </button>
+            <button close="" onclick="actionbar.close()">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+const actionbar = {
+    show: function(mode) {
+        document.querySelectorAll("#actionbar .mode").forEach(m => {
+            m.classList.toggle("active", m.dataset.mode == mode);
+        });
+    },
+    close: function() {
+        this.show("search");
+    }
+}
+actionbar.close();
+
+<check if="{{ @SHARE }}">
+actionbar.show("view");
+</check>
+
+
+</script>

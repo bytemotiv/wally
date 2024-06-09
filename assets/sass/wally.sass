@@ -111,20 +111,22 @@ button.secondary
         font-size: 1.5rem
 
 
-#topbar
+x#topbar
+    align-items: center
     background: #fff
-    position: absolute
-    z-index: 3
+    border-radius: 8px
     box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
     display: flex
-    align-items: center
     gap: 1.5rem
-    padding: 0.5rem 2rem
-    border-radius: 8px
     left: 50%
+    min-height: 3rem
+    padding: 0.5rem 2rem
+    position: absolute
     top: 1rem
     transform: translateX(-50%)
     width: 90vw
+    z-index: 3
+    transition: all 1s ease-in
 
     @include desktop
         width: auto
@@ -133,7 +135,7 @@ button.secondary
         display: flex
         gap: 0.5rem
 
-#searchbar
+x#searchbar
     //box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 100px 100px 80px rgba(0, 0, 0, 0.07)
     display: flex
     overflow: hidden
@@ -145,6 +147,8 @@ button.secondary
     border: 1px solid #515151
     border-radius: 8px
     height: 40px
+    max-width: 60ch
+    margin: 0 auto
 
     border: none
     background: #fff
@@ -1032,3 +1036,6 @@ body.login
             opacity: 1
             transform: scale(1.0)
             transition-delay: 0.25s
+
+
+@import actionbar

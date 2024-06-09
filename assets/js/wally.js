@@ -249,9 +249,6 @@ function locateUser() {
 
 function toggleDrawer(area, force=null) {
     hideQuicksearch();
-    if (area != "ping") {
-        hideMapPing();
-    }
     if (force !== null) {
         document.querySelector(`[data-drawer="${area}"]`).classList.toggle("active", force);
     } else {
@@ -265,7 +262,7 @@ function toggleDrawer(area, force=null) {
 function hideMapPing() {
     mapPing._icon.style.display = "none";
     mapPing.setOpacity(0);
-    toggleDrawer("ping", false);
+    actionbar.close();
 }
 
 function showMapPing(lat, lng) {
@@ -277,9 +274,10 @@ function showMapPing(lat, lng) {
     mapPing.setLatLng([lat, lng]);
     lat = lat.toFixed(4);
     lng = lng.toFixed(4);
-    document.querySelector("[data-drawer='ping'] .lat").innerHTML = lat;
-    document.querySelector("[data-drawer='ping'] .lng").innerHTML = lng;
-    toggleDrawer("ping", true);
+
+    document.querySelector("#actionbar .coordinates .lat").innerHTML = lat;
+    document.querySelector("#actionbar .coordinates .lng").innerHTML = lng;
+    actionbar.show("ping");
 }
 
 
@@ -333,3 +331,12 @@ function updateTags() {
     );
 
 }
+
+// --- State Graph ----------------------------------------------------------------------------------------------------
+
+var states = [
+    "map",
+    "search",
+    "shareview",
+    ""
+]
