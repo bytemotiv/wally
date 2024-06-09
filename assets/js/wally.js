@@ -172,9 +172,18 @@ function filterByCategory(categoryId) {
     });
     centerOnVisibleMarkers();
 
+    var categoryName = "";
     document.querySelectorAll("[data-drawer='categories'] li").forEach(li => {
         li.classList.toggle("active", li.dataset.category == categoryId);
+        if (li.dataset.category == categoryId) {
+            categoryName = li.querySelector(".name").innerText;
+        }
     });
+
+    if (categoryId != "*") {
+        document.querySelector("#actionbar .viewtitle").innerHTML = "Markers in the category <b>" + categoryName + "</b>";
+        actionbar.show("view");
+    }
 
     toggleDrawer("categories", false);
 }
@@ -262,7 +271,7 @@ function toggleDrawer(area, force=null) {
 function hideMapPing() {
     mapPing._icon.style.display = "none";
     mapPing.setOpacity(0);
-    actionbar.close();
+    actionbar.previous()
 }
 
 function showMapPing(lat, lng) {
@@ -277,7 +286,7 @@ function showMapPing(lat, lng) {
 
     document.querySelector("#actionbar .coordinates .lat").innerHTML = lat;
     document.querySelector("#actionbar .coordinates .lng").innerHTML = lng;
-    actionbar.show("ping");
+    actionbar.show("ping", false);
 }
 
 

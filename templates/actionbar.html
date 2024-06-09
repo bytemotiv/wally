@@ -8,7 +8,7 @@
     </div>
 
     <div class="mode" data-mode="view">
-        <div class="title">
+        <div class="viewtitle">
             <check if="{{ @SHARE }}">
                 {{ @SHARE_title | raw }}
             </check>
@@ -31,7 +31,7 @@
             <button title="Create new Marker here" class="primary" hx-post="{{ "markersCreate" | alias }}" hx-target="[data-drawer='marker']" hx-swap="innerHTML" hx-vals='js:{lat: mapPing.getLatLng().lat, lng: mapPing.getLatLng().lng}' hx-on::after-request="toggleDrawer('marker', true)">
                 <i class="ph ph-map-pin-plus"></i>
             </button>
-            <button close="" onclick="actionbar.close()">
+            <button close="" onclick="hideMapPing()">
                 <i class="ph ph-x"></i>
             </button>
         </div>
@@ -41,13 +41,23 @@
 <script>
 
 const actionbar = {
-    show: function(mode) {
+    lastMode: "search",
+
+    show: function(mode, saveMode=true) {
         document.querySelectorAll("#actionbar .mode").forEach(m => {
             m.classList.toggle("active", m.dataset.mode == mode);
         });
+        if (saveMode) {
+            this.lastMode = mode;
+        }
     },
+
     close: function() {
         this.show("search");
+    },
+
+    previous: function() {
+        this.show(this.lastMode);
     }
 }
 actionbar.close();
