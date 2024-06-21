@@ -309,6 +309,10 @@ function showMarkersWithTag(tag) {
             marker._icon.style.display = "block";
         }
     });
+
+    document.querySelector("#actionbar .viewtitle").innerHTML = "Markers tagged with <b>#" + tag + "</b>";
+    actionbar.show("view");
+
     centerOnVisibleMarkers();
 }
 

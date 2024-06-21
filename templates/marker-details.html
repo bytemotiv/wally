@@ -82,7 +82,7 @@
                 <li class="empty">No tags yet</li>
             </check>
             <repeat group="{{ @tags }}" value="{{ @tag }}">
-                <li data-counter="{{ @tag->amount }}">{{ @tag->tag }}</li>
+                <li data-counter="{{ @tag->amount }}" onclick="showMarkersWithTag('{{ @tag->tag }}')">{{ @tag->tag }}</li>
             </repeat>
         </ul>
     </div>

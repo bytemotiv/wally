@@ -50,12 +50,12 @@ At the first start, a setup wizard is asking for a few basic infos like an admin
 
 ### 1.0
 
-- [ ] Create an installation script for the first start
+- [x] Create an installation script for the first start
 
 ### 1.1
 
-- [ ] Make tags clickable and show their own view
-- [ ] Fix some UI inconsistencies on the Tags input
+- [x] Make tags clickable and show their own view
+- [x] Fix some UI inconsistencies on the Tags input
 
 - [ ] Move all drawers and map actions to a state machine
 - [ ] Fix refreshing of Markers on changes
@@ -63,7 +63,6 @@ At the first start, a setup wizard is asking for a few basic infos like an admin
 - [ ] Clean up SASS/CSS code
 - [ ] Unify JS Functions into wally.js
 - [ ] Clean up JS Functions, remove unused code from prototyping
-
 
 ### 1.2
 
@@ -74,12 +73,13 @@ At the first start, a setup wizard is asking for a few basic infos like an admin
 
 - [ ] Speaking URLs (via hx-push)
 - [ ] Better routing of URLs
+- [ ] Support for Hotkeys
 
 #### Later
 
-- [ ] Lightbox für Photos
+- [ ] Lightbox for Photos
 - [ ] Clustering of Markers depending on the zoom
 - [ ] Guided Setup process (Categories, Ratings, ...)
-- [ ] Improve Offline Capabilities
+- [ ] Improve Offline Capabilities (viable?)
 
 ---
