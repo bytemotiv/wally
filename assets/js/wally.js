@@ -3,6 +3,7 @@ var markerLayer;
 var searchresultsLayer;
 var userPosition;
 var mapPing;
+var tags;
 
 window.addEventListener("DOMContentLoaded", function () {
 
@@ -71,6 +72,7 @@ window.addEventListener("DOMContentLoaded", function () {
 // ----------------
 
 function loadMarkers() {
+    tags = [];
     markerLayer.clearLayers();
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "/markers/geojson");
@@ -118,8 +120,16 @@ function loadMarkers() {
                 marker.addTo(markerLayer);
                 marker._icon.style.display = "block";
                 marker._icon.dataset.tooltip = feature.properties.title;
+
+                feature.properties.tags.forEach(tag => {
+                    if (tags.indexOf(tag) < 0) {
+                        tags.push(tag);
+                    }
+                });
             }
         })
+
+        tags.sort();
 
         var lastCenter = getCookie("lastCenter");
         var lastZoom = getCookie("lastZoom");
@@ -287,6 +297,19 @@ function showMapPing(lat, lng) {
     document.querySelector("#actionbar .coordinates .lat").innerHTML = lat;
     document.querySelector("#actionbar .coordinates .lng").innerHTML = lng;
     actionbar.show("ping", false);
+}
+
+
+//TODO: Remove marker instead of just hiding them?
+function showMarkersWithTag(tag) {
+    markerLayer.eachLayer(marker => {
+        if (marker.options.properties.tags.indexOf(tag) < 0) {
+            marker._icon.style.display = "none";
+        } else {
+            marker._icon.style.display = "block";
+        }
+    });
+    centerOnVisibleMarkers();
 }
 
 

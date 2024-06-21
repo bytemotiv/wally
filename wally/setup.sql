@@ -59,3 +59,5 @@ CREATE TABLE IF NOT EXISTS "uploads" (
 "date"	TEXT,
 PRIMARY KEY("marker","image")
 );
+
+CREATE VIEW markersWithTags AS SELECT * FROM "markers" JOIN "tags" ON tags.marker = markers.id;

@@ -80,4 +80,32 @@ class Share extends Controller {
         echo Template::instance()->render("share-dialog.html");
     }
 
+    function tag($f3, $args) {
+        $tag = $args["tag"];
+
+        $db = $this->db;
+
+        $share = new DB\SQL\Mapper($db, "sharing");
+        $share->load(array("type='tag' AND value=?", $tag));
+
+        if ($share->dry()) {
+            $bytes = random_bytes(12);
+            $share->key = bin2hex($bytes);
+            $share->type = "tag";
+            $share->value = $tag;
+            $share->created = time();
+            $share->save();
+        }
+
+        $protocol = !empty($_SERVER["HTTPS"]) ? "https://" : "http://";
+        $hostname = $_SERVER["HTTP_HOST"];
+        $port = $_SERVER["SERVER_PORT"] == 80 ? "" : ":".$_SERVER["SERVER_PORT"];
+
+        $link = $protocol.$hostname.$port."/share/".$share->key;
+
+        $f3->set("sharetype", "tag");
+        $f3->set("link", $link);
+        echo Template::instance()->render("share-dialog.html");
+    }
+
 }

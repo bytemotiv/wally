@@ -22,6 +22,12 @@ class Markers extends Controller {
             if ($share->type == "category") {
                 $markers = $marker->find(array("category=?", $share->value));
             }
+
+            if ($share->type == "tag") {
+                $marker = new DB\SQL\Mapper($db, "markersWithTags");
+                $markers = $marker->find(array("tag=?", $share->value));
+            }
+
         }
 
 
@@ -36,11 +42,19 @@ class Markers extends Controller {
             $categories[$cat->id] = [
                 "color" => $cat->color,
                 "icon" => $cat->icon,
+                "name" => $cat->name,
             ];
         }
 
         $features = [];
         foreach ($markers as $marker) {
+            $tags = new DB\SQL\Mapper($db, "tags");
+            $tags = $tags->find(array("marker=?", $marker->id));
+            $taglist = [];
+            foreach ($tags as $t) {
+                $taglist[] = $t->tag;
+            }
+
             $feature = [
                 "type" => "Feature",
                 "properties" => [
@@ -50,6 +64,9 @@ class Markers extends Controller {
                     "title" => $marker->name,
                     "color" => $categories[$marker->category]["color"],
                     "icon" => $categories[$marker->category]["icon"],
+                    "tags" => $taglist,
+                    "categoryValue" => $categories[$marker->category]["name"],
+                    "ratingValue" => "Rating: ".$marker->rating,
                 ],
                 "geometry" => [
                     "type" => "Point",

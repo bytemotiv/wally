@@ -1,7 +1,7 @@
 <div id="actionbar">
     <div class="mode" data-mode="search">
         <i class="icon ph ph-magnifying-glass"></i>
-        <input type="search" inputmode="search" onkeyup="search(this.value, event)">
+        <input type="search" inputmode="search" onkeyup="search(this.value, event)" placeholder="Search for a location or a #tag">
         <button onclick="search(this.parentNode.querySelector('input').value, 'click');">
             <i class="ph ph-arrow-right"></i>
         </button>
@@ -66,5 +66,96 @@ actionbar.close();
 actionbar.show("view");
 </check>
 
+
+</script>
+
+<div id="quickresults"></div>
+<div id="searchresults"></div>
+
+<script>
+
+function search(query, event) {
+    if (event.key === "Enter" || event == "click") {
+        toggleDrawer("searchresult", false);
+        document.querySelector("#searchresults").innerHTML = "";
+        document.querySelector("#quickresults").style.display = "none";
+        htmx.ajax(
+            "GET",
+            `{{ "search" | alias }}?query=${query}`,
+            {
+                "target": "#searchresults"
+            }
+        );
+    } else {
+        query = query.toLowerCase();
+        if (query.startsWith("#")) {
+            query = query.substring(1);
+
+            var matchingTags = {};
+            markerLayer.eachLayer(marker => {
+                marker.options.properties.tags.forEach(tag => {
+                    if (tag.toLowerCase().startsWith(query)) {
+                        if (matchingTags[tag] == undefined) {
+                            matchingTags[tag] = 1;
+                        } else {
+                            matchingTags[tag]++;
+                        }
+                    }
+                });
+            });
+
+            document.querySelector("#quickresults").innerHTML = "";
+            var shareUrl = "{{ "shareTagPlain" | alias }}";
+            for (key in matchingTags) {
+                document.querySelector("#quickresults").innerHTML += `
+                    <div class="result">
+                        <div onclick="showMarkersWithTag('${key}')">#${key}</div>
+                        <div>
+                            <span>${matchingTags[key]} Marker</span>
+                            <button hx-get="${shareUrl}/${key}" hx-target="dialog" hx-on::after-request="openDialog()"">
+                                <i class="ph ph-share-network"></i>
+                            </button>
+                        </div>
+                    </div>
+                    `;
+            }
+            htmx.process("#quickresults");
+        } else {
+            document.querySelector("#quickresults").innerHTML = "";
+            if (query.length < 3) {
+                return;
+            }
+            markerLayer.eachLayer(marker => {
+                if (marker.options.properties.title.toLowerCase().indexOf(query) > -1) {
+                    document.querySelector("#quickresults").innerHTML += `
+                    <div class="result" onclick="showMarkerDetails(${marker.options.properties.id})">
+                        <div>
+                            <div>${marker.options.properties.title}</div>
+                            <!-- div class="rating">${marker.options.properties.ratingValue}</div -->
+                        </div>
+                        <div>
+                            <div class="category" style="--color: ${marker.options.properties.color}">
+                                <i class="ph ph-${marker.options.properties.icon}"></i>
+                                <span>${marker.options.properties.categoryValue}</span>
+                            </div>
+                            <!-- div class="tags">${marker.options.properties.tags}</div -->
+                        </div>
+                    </div>
+                    `;
+                }
+            });
+        }
+    }
+}
+
+function hideQuicksearch() {
+    //document.querySelector("#searchbar input").value = "";
+    document.querySelector("#searchresults").innerHTML = "";
+    document.querySelector("#quickresults").innerHTML = "";
+    //style.display = "none";
+    //document.querySelectorAll("#quickresults .result").forEach(result => {
+    //    result.classList.remove("visible");
+    //});
+}
 
 </script>

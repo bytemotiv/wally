@@ -88,6 +88,12 @@ class Controller {
                         $f3->set("SHARE_title", $shareTitle);
                     }
 
+                    if ($shareDetails->type == "tag") {
+                        $tag = $shareDetails->value;
+                        $shareTitle = "Markers tagged with <b>#".$tag."</b>";
+                        $f3->set("SHARE_title", $shareTitle);
+                    }
+
                 }
             } else {
                 $f3->set("LOGIN", $login);
