@@ -20,19 +20,6 @@
     <js src="/assets/js/wally.js">
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <script>
-        var markerStyles = {};
-
-        <repeat group="{{ @categories }}" value="{{ @category }}">
-            var el = document.createElement("div");
-            el.className = "marker-category";
-            el.innerHTML = `<i class="ph-bold ph-{{ @category->icon }}" style="color: {{ @category->color }}"></i>`;
-            el.style.width = "24px";
-            el.style.height = "24px";
-            markerStyles[{{ @category->id }}] = el;
-        </repeat>
-    </script>
 </head>
 <body>
 
@@ -70,14 +57,6 @@
         <div id="null"></div>
 
         <dialog></dialog>
-        <script>
-        function openDialog() {
-            document.querySelector("dialog").showModal();
-        }
-        function closeDialog() {
-            document.querySelector("dialog").close();
-        }
-        </script>
 
         <datalist id="tags"></datalist>
     </main>

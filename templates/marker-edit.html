@@ -50,12 +50,6 @@
                 </div>
             </form>
         </div>
-
-        <script>
-        function removePhoto(element) {
-            element.closest(".photo").remove();
-        }
-        </script>
     </div>
 
     <div class="tags group">
@@ -75,22 +69,6 @@
             </ul>
             <input type="text" placeholder="New Tag" onkeypress="addTag(this, event)" list="tags">
         </div>
-
-        <script>
-        function removeTag(element) {
-            element.closest("li").remove();
-        }
-
-        function addTag(element, event) {
-            if (event.key == "Enter") {
-                var ul = document.querySelector("ul.tags");
-                var li = document.createElement("li");
-                li.innerHTML = `<span>${element.value}</span><button onclick="removeTag(this)"><i class="ph ph-x"></i></button>`;
-                ul.appendChild(li);
-                element.value = "";
-            }
-        }
-        </script>
     </div>
 
     <div class="notes group">
@@ -165,6 +143,24 @@ async function shareMarker() {
         }).showToast();
     } catch (error) {
         console.error(error.message);
+    }
+}
+
+function removePhoto(element) {
+    element.closest(".photo").remove();
+}
+
+function removeTag(element) {
+    element.closest("li").remove();
+}
+
+function addTag(element, event) {
+    if (event.key == "Enter") {
+        var ul = document.querySelector("ul.tags");
+        var li = document.createElement("li");
+        li.innerHTML = `<span>${element.value}</span><button onclick="removeTag(this)"><i class="ph ph-x"></i></button>`;
+        ul.appendChild(li);
+        element.value = "";
     }
 }
 

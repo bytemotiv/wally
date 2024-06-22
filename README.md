@@ -48,21 +48,17 @@ At the first start, a setup wizard is asking for a few basic infos like an admin
 
 ## Todos
 
-### 1.0
-
-- [x] Create an installation script for the first start
-
 ### 1.1
 
 - [x] Make tags clickable and show their own view
 - [x] Fix some UI inconsistencies on the Tags input
 
-- [ ] Move all drawers and map actions to a state machine
-- [ ] Fix refreshing of Markers on changes
-
 - [ ] Clean up SASS/CSS code
 - [ ] Unify JS Functions into wally.js
 - [ ] Clean up JS Functions, remove unused code from prototyping
+
+- [ ] Move all drawers and map actions to a state machine
+- [ ] Fix refreshing of Markers on changes
 
 ### 1.2
 

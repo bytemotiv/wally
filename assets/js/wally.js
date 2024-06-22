@@ -218,48 +218,36 @@ function filterByRating(rating) {
 
 
 function locateUser() {
-    /*
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var userLocation = [position.coords.latitude, position.coords.longitude];
-            map.flyTo(userLocation);
-            userPosition.setLatLng(userLocation);
-        }, function(error) {
-            alert("Error getting user location:" + error.code + " / " + error.message);
-        });
-    } else {
-        alert("Geolocation is not supported by your browser");
-    }
-    */
-    if ( navigator.permissions && navigator.permissions.query) {
+    if (navigator.permissions && navigator.permissions.query) {
         //try permissions APIs first
-        navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
-            // Will return ['granted', 'prompt', 'denied']
+        navigator.permissions.query({ name: "geolocation" }).then(result => {
             const permission = result.state;
-            if ( permission === 'granted' || permission === 'prompt' ) {
-                _onGetCurrentLocation();
+            if (permission === "granted" || permission === "prompt") {
+                onGetCurrentLocation();
             }
         });
-      } else if (navigator.geolocation) {
-        //then Navigation APIs
-        _onGetCurrentLocation();
-      }
+    } else if (navigator.geolocation) {
+        //try Navigation APIs second
+        onGetCurrentLocation();
+    }
 
-      function _onGetCurrentLocation () {
-          const options = {
-                  enableHighAccuracy: true,
-                  timeout: 5000,
-                  maximumAge: 0
-          };
-          navigator.geolocation.getCurrentPosition( function (position) {
-            var userLocation = [position.coords.latitude, position.coords.longitude];
+    function onGetCurrentLocation() {
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+        navigator.geolocation.getCurrentPosition(position => {
+            const userLocation = [position.coords.latitude, position.coords.longitude];
             map.flyTo(userLocation);
             userPosition.setLatLng(userLocation);
-          }, function (error) {
-            alert("Error getting user location:" + error.code + " / " + error.message);
-          }, options)
-      }
+        }, error => {
+            alert(`Error getting user location: ${error.code} / ${error.message}`);
+            //TODO: show Toast instead
+        }, options);
+    }
 }
+
 
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -371,6 +359,15 @@ function updateTags() {
     );
 
 }
+
+function openDialog() {
+    document.querySelector("dialog").showModal();
+}
+
+function closeDialog() {
+    document.querySelector("dialog").close();
+}
+
 
 // --- State Graph ----------------------------------------------------------------------------------------------------
 

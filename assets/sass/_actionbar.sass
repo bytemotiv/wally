@@ -70,11 +70,18 @@
         gap: 1rem
         justify-content: space-between
         margin: 0
-        min-width: 60ch
         padding: 0.5rem
+        min-width: 90vw
+        max-width: 90vw
+
+        @include desktop
+            min-width: 60ch
 
         &:hover
             background: darken($color-white, 5%)
+
+        & > *:nth-child(1)
+            flex: 1 1 auto
 
         & > *:nth-child(2)
             color: $color-icon

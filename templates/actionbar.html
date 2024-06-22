@@ -38,6 +38,9 @@
     </div>
 </div>
 
+<div id="quickresults"></div>
+<div id="searchresults"></div>
+
 <script>
 
 const actionbar = {
@@ -65,14 +68,6 @@ actionbar.close();
 <check if="{{ @SHARE }}">
 actionbar.show("view");
 </check>
-
-
-</script>
-
-<div id="quickresults"></div>
-<div id="searchresults"></div>
-
-<script>
 
 function search(query, event) {
     if (event.key === "Enter" || event == "click") {
@@ -149,13 +144,8 @@ function search(query, event) {
 }
 
 function hideQuicksearch() {
-    //document.querySelector("#searchbar input").value = "";
     document.querySelector("#searchresults").innerHTML = "";
     document.querySelector("#quickresults").innerHTML = "";
-    //style.display = "none";
-    //document.querySelectorAll("#quickresults .result").forEach(result => {
-    //    result.classList.remove("visible");
-    //});
 }
 
 </script>

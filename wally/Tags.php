@@ -7,9 +7,16 @@ class Tags extends Controller {
         $tags = new DB\SQL\Mapper($db, "tags");
         $tags = $tags->find();
 
-        $entries = "";
+        $uniqueTags = [];
         foreach ($tags as $tag) {
-            $entries .= "<option value=\"".$tag->tag."\">";
+            if (!in_array($tag->tag, $uniqueTags)) {
+                $uniqueTags[] = $tag->tag;
+            }
+        }
+
+        $entries = "";
+        foreach ($uniqueTags as $tag) {
+            $entries .= "<option value=\"".$tag."\">";
         }
         echo $entries;
     }
