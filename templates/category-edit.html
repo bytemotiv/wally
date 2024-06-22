@@ -18,7 +18,7 @@
 
 <hr>
 
-<div class="icons">
+<div class="options-grid">
     <div onclick="selectIcon(this)" class="icon" data-icon="cactus">
         <i class="ph ph-cactus"></i>
     </div>
@@ -115,7 +115,7 @@
 
 <hr>
 
-<div class="colors">
+<div class="options-grid">
     <div onclick="selectColor(this)" class="color" data-color="#1abc9c" style="--color:#1abc9c"></div>
     <div onclick="selectColor(this)" class="color" data-color="#2ecc71" style="--color:#2ecc71"></div>
     <div onclick="selectColor(this)" class="color" data-color="#3498db" style="--color:#3498db"></div>
@@ -177,10 +177,10 @@
         "color": "{{ @category->color }}",
     }
 
-    document.querySelectorAll(".icons .icon").forEach(i => {
+    document.querySelectorAll(".options-grid .icon").forEach(i => {
         i.classList.toggle("active", i.dataset.icon == category["icon"]);
     });
-    document.querySelectorAll(".colors .color").forEach(c => {
+    document.querySelectorAll(".options-grid .color").forEach(c => {
         c.classList.toggle("active", c.dataset.color == category["color"]);
     });
 
@@ -190,14 +190,14 @@
 
     function selectIcon(el) {
         category["icon"] = el.dataset.icon;
-        document.querySelectorAll(".icons .icon").forEach(i => {
+        document.querySelectorAll(".options-grid .icon").forEach(i => {
             i.classList.toggle("active", i === el);
         });
     }
 
     function selectColor(el) {
         category["color"] = el.dataset.color;
-        document.querySelectorAll(".colors .color").forEach(c => {
+        document.querySelectorAll(".options-grid .color").forEach(c => {
             c.classList.toggle("active", c === el);
         });
     }

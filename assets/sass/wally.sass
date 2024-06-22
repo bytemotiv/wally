@@ -5,21 +5,21 @@
 *
     box-sizing: border-box
 
-
 html
     margin: 0
     padding: 0
 
 body
     font-family: $font-default
+    font-size: 16px
     height: 100dvh
     margin: 0
-    overflow: hidden
     max-height: 100vh
-    padding: 0
-    overscroll-behavior: contain
-    -webkit-overflow-scrolling: touch
     overflow-scrolling: touch
+    -webkit-overflow-scrolling: touch
+    overflow: hidden
+    overscroll-behavior: contain
+    padding: 0
     touch-action: manipulation
 
 main
@@ -34,311 +34,19 @@ button.primary
 button.secondary
     @include buttonSecondary
 
-
-
 hr
     background: $color-border
     height: 1px
     border: none
 
-input.category-edit
-    border: 1px solid $color-icon
-    border-radius: 8px
-    width: 100%
-    padding: 0.5rem
-    margin: 0 0 1rem 0
 
-.icons
-    display: grid
-    gap: 0
-    grid-template-columns: repeat(5, 1fr)
-    grid-template-rows: auto
-    margin: 1rem 0
-
-    .icon
-        align-items: center
-        border-radius: 8px
-        border: 2px solid $color-white
-        display: flex
-        font-size: 1.5rem
-        justify-content: center
-        padding: 0.5rem
-
-        &.active
-            border: 2px solid $color-black
-            background: #eee
-
-.colors
-    display: grid
-    gap: 0.5rem
-    grid-template-columns: repeat(5, 1fr)
-    grid-template-rows: auto
-    margin: 1rem 0
-
-    .color
-        background: var(--color, #cccccc)
-        border-radius: 16px
-        min-height: 3rem
-        border: 8px solid $color-white
-
-        &.active
-            border-radius: 8px
-            border: 8px solid var(--color, #cccccc)
-
-
-.toastify
-    transform: translate(0px)
-    top: 15px
-    position: absolute
-    z-index: 11
-    background: #515151
-    color: $color-white
-    left: 0.5rem
-    right: 0.5rem
-    border-radius: 8px
-    text-align: center
-    padding: 0.5rem
-    transform: translateY(-15px)
-    transition: all 0.5s ease-in-out
-
-    .toast-close
-        position: absolute
-        right: 0.5rem
-        background: none
-        border: none
-        color: $color-white
-
-
-// --------------------------------------------------------------------------------------------------------------------
-
-#drawers
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    height: 100dvh
-    overflow: hidden
-
-.drawer
-    background: $color-white
-    opacity: .6
-    padding: 0
-    position: absolute
-    transform: translateY(100%)
-    transition: all .3s ease-in-out
-    max-height: 100vh
-
-    border-top-left-radius: 1rem
-    border-top-right-radius: 1rem
-    bottom: 0
-    left: 0
-    right: 0
-    z-index: 3
-
-    @include desktop
-        transform: translateX(-100%)
-
-    &.active
-        transform: translateY(0)
-        opacity: 1
-
-        @include desktop
-            transform: translateX(0)
-
-    .title
-        align-items: center
-        color: $color-black
-        display: flex
-        font-size: 1.5rem
-        justify-content: space-between
-        margin: 0 0 1rem 0
-
-        button
-            @include buttonTouch($color-icon)
-
-    ul
-        list-style: none
-        margin: 0
-        padding: 0
-
-    .buttons
-        display: flex
-        gap: 0.5rem
-
-        button
-            width: 100%
-
-    &[data-drawer="marker"]
-        padding: 0
-
-        .details
-            overflow-y: auto
-
-    &[data-drawer="categories"],
-    &[data-drawer="ratings"]
-        padding: 1rem
-        z-index: 5
-        max-height: 100svh
-        box-shadow: $shadow-default
-
-        @include desktop
-            max-height: none
-            height: 100vh
-            width: 25rem
-            border-top-left-radius: 0
-
-        ul
-            overflow: auto
-            max-height: calc(100svh - 5rem)
-
-
-    &[data-drawer="searchresult"]
-        padding: 1rem
-
-        &.active
-            .controls
-                display: flex
-
-        .controls
-            position: absolute
-            top: -3.5rem
-            right: 1rem
-            gap: 1rem
-            display: none
-
-            button
-                background: $color-white
-                border-radius: 100%
-                border: 0
-                box-shadow: $shadow-default
-                color: $color-icon
-                cursor: pointer
-                font-size: 20px
-                height: 2.5rem
-                padding: 0.5rem
-                transition: all 0.5 ease-in-out
-                width: 2.5rem
-
-                &:hover
-                    background: darken($color-white, 10%)
-
-                &:active
-                    transform: translateY(0.1rem)
-                    background: darken($color-white, 20%)
-                    box-shadow: $shadow-default
-
-        .category
-            display: block
-            font-size: 14px
-            color: $color-icon
-
-        .address
-            margin: 0 0 1rem 0
-
-        button.primary
-            width: 100%
-
-li.listitem-button
-    margin: 1rem 0 0 0
-
-    button
-        width: 100%
-
-li.listitem
-    display: grid
-    grid-gap: 0 1rem
-    grid-template-areas: "icon name  options" "icon stats options"
-    grid-template-columns: 2.5rem auto auto
-    grid-template-rows: 1fr 1fr
-    border-top: 1px solid $color-border
-    cursor: pointer
-    align-items: center
-    padding: 0.75rem 0
-    color: #616161
-
-    &.small
-        grid-template-areas: "icon name options"
-        grid-template-rows: 1fr
-
-    &:hover,
-    &.active
-        color: $color-black
-
-    .icon
-        align-items: center
-        border-radius: 100%
-        color: var(--color, $color-icon)
-        display: flex
-        font-size: 1.5rem
-        grid-area: icon
-        height: 2.5rem
-        justify-content: center
-        width: 2.5rem
-
-    .name
-        font-size: 20px
-        grid-area: name
-
-    .stats
-        color: #a0a0a0
-        font-size: 16px
-        grid-area: stats
-
-    .options
-        display: flex
-        grid-area: options
-        justify-content: flex-end
-
-        button.edit
-            @include buttonTouch
-
-        button.share
-            @include buttonTouch
-
-
-ul.tags
-    display: flex
-    flex-wrap: wrap
-    list-style: none
-    margin: 0
-    padding: 0
-    gap: 0.5rem
-
-    li
-        border: none
-        background: darken($color-white, 10%)
-        border-radius: 0.5rem
-        padding: 0.25rem 0.75rem 0.25rem 0.725rem
-        font-size: 14px
-        display: flex
-        align-items: center
-        margin: 0 0 0.5rem 0
-        cursor: pointer
-
-        &:hover
-            background: darken($color-white, 15%)
-
-        &.empty
-            background: none
-            color: $color-icon
-
-    button
-        border: none
-        background: none
-        cursor: pointer
-        font-size: 1.125rem
-        color: $color-button
-
-div.tags
-    input
-        margin: 0
-        @include inputField
-
-
+// --- Imports --------------------------------------------------------------------------------------------------------
 
 @import map
 @import actionbar
 @import login
 @import dialog
 @import search
+@import drawer
 @import drawer-marker
+@import toast

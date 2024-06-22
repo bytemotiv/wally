@@ -16,16 +16,20 @@
             hx-post="{{ "markerCategory", "id=".@marker->id | alias }}"
             hx-vals='{"category": "{{ @category->id }}"}'
             hx-target="[data-drawer='marker']"
-            hx-on::after-request="loadMarkers()"
+            hx-on::after-request="loadMarkers();"
+            hx-on::after-settle=""
         >
-            <div class="icon" style="--color: {{ @category->color }}">
+        <!--hx-on::after-request fails when hx-on::after-settle is not set ?? -->
+             <div class="icon" style="--color: {{ @category->color }}">
                 <i class="ph-bold ph-{{ @category->icon }}"></i>
             </div>
             <div class="name">{{ @category->name }}</div>
             <div class="stats">{{ @category->amount }} Places</div>
+            <!--
             <div class="options">
                 <button hx-post="{{ "markerCategory", "id=".@marker->id | alias }}" hx-vals='{"category": "{{ @category->id }}"}' hx-target="[data-drawer='marker']" class="primary" hx-on::after-request="loadMarkers()">Select</button>
             </div>
+            -->
         </li>
     </repeat>
 
