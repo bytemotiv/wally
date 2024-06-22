@@ -1,0 +1,65 @@
+body.login
+    overflow: hidden
+    width: 100vw
+    height: 100vh
+    background-color: darken($color-white, 5%)
+    background-image: radial-gradient($color-wally 1px, darken($color-white, 5%) 1px)
+    background-size: 2rem 2rem
+
+    main
+        align-items: center
+        display: flex
+        height: 100vh
+        justify-content: center
+        width: 100vw
+        font-family: $font-default
+
+    form
+        align-items: center
+        background: $color-white
+        border-radius: 1rem
+        box-shadow: $shadow-default
+        display: flex
+        flex-direction: column
+        gap: 5rem
+        justify-content: space-around
+        margin: 10vh auto
+        max-width: 90vw
+        padding: 3rem
+
+        @include desktop
+            flex-direction: row
+            max-width: 50vw
+
+        h1
+            margin: 0
+            padding: 0
+            font-size: 2rem
+            line-height: 1.5
+            color: $color-wally
+
+        h2
+            margin: 0
+            padding: 0
+            line-height: 1.5
+            font-size: 1.5rem
+
+        img
+            max-height: 200px
+            width: auto
+            max-width: 10rem
+
+        & > div
+            display: flex
+            flex-direction: column
+            gap: 1rem
+
+        input
+            @include inputField
+            font-size: 1rem
+            box-shadow: $shadow-default
+
+        button
+            @include buttonPrimary
+            padding: 0.5rem
+            font-size: 1rem

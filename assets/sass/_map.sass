@@ -1,0 +1,108 @@
+#map
+    background: $color-white
+    inset: 0
+    position: fixed
+    z-index: 1
+
+    &.activesearch,
+    &.zoomedout
+        .wally-marker
+            div
+                background: var(--color, $color-black)
+                display: block
+                width: 0.5rem
+                height: 0.5rem
+                border-radius: 100%
+                position: relative
+                top: 11px
+                left: 11px
+
+            svg, i
+                display: none
+
+    .wally-user
+        width: 1rem
+        height: 1rem
+        border-radius: 100%
+        background: rgba($color-userlocation, 0.5)
+        outline: 0.5rem solid rgba($color-userlocation, 0.15)
+
+    .wally-ping
+        width: 1rem
+        height: 1rem
+        border-radius: 100%
+        background: rgba($color-black, 0.5)
+        outline: 0.5rem solid rgba($color-black, 0.15)
+
+    .wally-searchresult
+        width: 2rem
+        height: 2rem
+        border-radius: 100%
+        background: rgba($color-searchresult, 0.35)
+        display: flex
+        justify-content: center
+        align-items: center
+        font-weight: bold
+
+    .wally-marker
+        border: none
+        background: none
+        position: relative
+        z-index: 1
+        border-radius: 100%
+
+        &.selected
+            background: rgba($color-black, 0.15)
+            outline: 1rem solid rgba($color-black, 0.15)
+            outline-style: solid !important
+
+        svg
+            position: absolute
+            inset: 0
+            z-index: 1
+
+        i
+            display: flex
+            justify-content: center
+            align-items: center
+            position: absolute
+            inset: 0
+            font-size: 14px
+            color: $color-white
+            z-index: 2
+
+    .marker-category
+        font-size: 1.5rem
+
+
+#marker-tooltip
+    position: absolute
+    z-index: 10
+
+    &:after
+        background: $color-white
+        border-radius: 8px
+        box-shadow: $shadow-default
+        color: $color-icon
+        content: attr(data-tooltip)
+        display: inline
+        font-size: 0.9rem
+        font-weight: 600
+        left: 0
+        line-height: 1.5em
+        opacity: 0
+        padding: 0.5em 0.8em
+        pointer-events: none
+        position: absolute
+        top: -4px
+        transition: all 0.2s ease-in
+        white-space: pre
+        transform: scale(0.7)
+        z-index: 11
+
+    &.visible
+        &:after
+            left: 2rem
+            opacity: 1
+            transform: scale(1.0)
+            transition-delay: 0.25s

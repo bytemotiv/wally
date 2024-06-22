@@ -17,7 +17,7 @@
             <button class="primary" onclick="centerOnVisibleMarkers()">
                 <i class="ph ph-map-trifold"></i>
             </button>
-            <button class="primary" hx-get="{{ "shareCategory", "category=1" | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
+            <button class="primary" data-share hx-get="{{ "shareCategory", "category=1" | alias }}" hx-target="dialog" hx-on::after-request="openDialog()">
                 <i class="ph ph-share-network"></i>
             </button>
         </div>

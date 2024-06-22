@@ -310,7 +310,11 @@ function showMarkersWithTag(tag) {
         }
     });
 
+    var shareUrl = "/share/tag"; // TODO: get from F3
     document.querySelector("#actionbar .viewtitle").innerHTML = "Markers tagged with <b>#" + tag + "</b>";
+    document.querySelector("#actionbar [data-share]").setAttribute("hx-get", shareUrl + "/" + tag);
+    htmx.process("#actionbar");
+
     actionbar.show("view");
 
     centerOnVisibleMarkers();

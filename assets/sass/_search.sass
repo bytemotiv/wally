@@ -1,0 +1,72 @@
+#searchresults
+    position: absolute
+    z-index: 10
+    left: 0.5rem
+    right: 0.5rem
+    top: 3.5rem
+    box-shadow: $shadow-default
+    border-radius: 8px
+    overflow: hidden
+
+    @include desktop
+        left: 25.5rem
+        right: 25.5rem
+
+    .result
+        background: $color-white
+        border-bottom: 1px solid $color-border
+        cursor: pointer
+        display: none
+        margin: 0
+        padding: 0.5rem
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: auto auto
+        grid-template-areas: "name name" "address address" "category rating"
+
+        &.visible
+            display: grid
+
+        &:hover
+            background: darken($color-white, 10%)
+
+        .name
+            font-size: 16px
+            font-weight: bold
+            color: $color-black
+            grid-area: name
+
+        .address
+            font-size: 12px
+            color: $color-black
+            grid-area: address
+
+        .category
+            font-size: 12px
+            color: $color-icon
+            grid-area: category
+
+        .rating
+            font-size: 12px
+            color: $color-icon
+            grid-area: rating
+            justify-self: flex-end
+
+#searchresults
+    bottom: 0.5rem
+    top: auto
+
+#controls
+    position: absolute
+    bottom: 1.5rem
+    right: 0.5rem
+    display: flex
+    flex-direction: column
+    gap: 1rem
+    z-index: 2
+
+    button
+        @include buttonPrimary
+        font-size: 1.5rem
+        height: 2.5rem
+        width: 2.5rem
+
